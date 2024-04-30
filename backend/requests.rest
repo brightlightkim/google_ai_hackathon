@@ -31,9 +31,14 @@
 #     "newPassword": "Ehlswkd66!!"
 # }
 
-POST http://localhost:3000/check-verification-token
+POST http://localhost:3000/build-travel-plan
 Content-Type: application/json
 
 {
-    "verificationToken": "f8j7ljr60h9nld7cxw5qc"
+    "travelTo": "Provo, UT", 
+    "travelFrom": "South Korea", 
+    "travelWith": "Car", 
+    "fromDate": "May 6", 
+    "toDate": "May 9", 
+    "specificActivity": "school tour, museum, hiking, shopping, eating, etc."
 }
