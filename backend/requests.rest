@@ -1,0 +1,39 @@
+
+
+# POST http://localhost:3000/get-blog
+# Content-Type: application/json
+
+# {
+#     "blog_id": "Testing-onemqpubz5HSPyu-51oI8iGk"
+# }
+
+# POST http://localhost:3000/get-profile
+# Content-Type: application/json
+
+# {
+#     "username": "sunguard9509"
+# }
+
+
+# POST http://localhost:3000/search-users
+# Content-Type: application/json
+
+# {
+#     "username": "taeyang"
+# }
+
+# POST http://localhost:3000/change-password
+# Content-Type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MDI1YjY1YzcwMTYwYjNlZjE3ZTJhYiIsImlhdCI6MTcxMTQzMDUzOH0.qCOfx2pt9yJIk7OtoORLqLc0IpzlypPNX7QcvIcdIfk
+
+# {
+#     "currentPassword": "Ehlswkd66!",
+#     "newPassword": "Ehlswkd66!!"
+# }
+
+POST http://localhost:3000/check-verification-token
+Content-Type: application/json
+
+{
+    "verificationToken": "f8j7ljr60h9nld7cxw5qc"
+}
