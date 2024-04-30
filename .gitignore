@@ -131,5 +131,5 @@ dist
 
 # firebase file admin sdk json file for gitignore
 backend/aihackathon-bb85a-firebase-adminsdk-zyl5x-2ecf43634a.json
-backend/kbsa-932f1-firebase-adminsdk-uwqjv-f1e6c476dd.json
 frontend/src/common/firebase.jsx
+frontend/.vite
