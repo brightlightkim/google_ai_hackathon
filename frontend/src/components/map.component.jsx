@@ -18,8 +18,9 @@ const Map = () => {
   const getUserLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        const { lat, lng } = position.coords;
-        setUserLocation({ lat, lng });
+        console.log('Position: ', position.coords);
+        const { latitude, longitude } = position.coords;
+        setUserLocation({ latitude, longitude });
       },
       (error) => {
         console.error('Error getting user location: ', error);
@@ -29,12 +30,19 @@ const Map = () => {
     }
   };
   
-  useEffect(() => {
-    getUserLocation();
-  })
+  // useEffect(() => {
+  //   getUserLocation();
+  // })
 
+  // run it once
+  getUserLocation();
+
+  console.log(userLocation);
+
+  const googleMapsApiKey = "AIzaSyDqfOcm6kCq9yVXAuAqHJEBNwOi7iZOvs8";
+  
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
+    googleMapsApiKey,
     libraries,
   });
 
@@ -46,14 +54,16 @@ const Map = () => {
     return <div>Loading maps</div>;
   }
 
+  console.log("Center: ", center);
+
   return (
     <div>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={10}
-        center={userLocation}
+        center={{ lat: userLocation.latitude, lng: userLocation.longitude }}
+        // center={center}
       >
-        <Marker position={userLocation} />
       </GoogleMap>
     </div>
   );
