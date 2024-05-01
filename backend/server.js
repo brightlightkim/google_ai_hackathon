@@ -20,6 +20,7 @@ import {
   HarmCategory,
   HarmBlockThreshold,
 } from '@google/generative-ai';
+import axios from 'axios';
 
 const server = express();
 let PORT = 3000;
@@ -1223,6 +1224,44 @@ server.post('/build-travel-plan', async (req, res) => {
   const result = await chat.sendMessage(query);
   // return res.status(200).json(JSON.parse(result));
   return res.status(200).json(result.response.candidates[0].content.parts[0].text);
+});
+
+server.post('/place-reviews', async (req, res) => {
+  const headers = {
+    "Content-Type": "application/json",
+    "X-Goog-Api-Key": "AIzaSyDqfOcm6kCq9yVXAuAqHJEBNwOi7iZOvs8",
+    "X-Goog-FieldMask": "*"
+  }
+  const query = req.body.textQuery;
+  const searchUrl = 'https://places.googleapis.com/v1/places:searchText?fields=*';
+
+  if (!query) {
+    return res.status(400).json({ message: 'Missing query parameter' });
+  }
+
+  try {
+    // invoke the Google Places Text Search API
+    const requestData = {
+      "textQuery": query
+    }
+
+    const config = {
+      headers: {
+        ...headers
+      }
+    }
+
+    console.log("Config: ", config);
+    console.log("Request Data: ", requestData);
+    console.log("Search URL: ", searchUrl);
+    const response = await axios.post(searchUrl, requestData, config);
+
+    console.log("Response: ", response);
+    // Return the response from the Google Places API
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 server.listen(PORT, () => {
