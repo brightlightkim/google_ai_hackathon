@@ -7,6 +7,7 @@ import HomePage from './pages/home.page';
 import PageNotFound from './pages/404.page';
 import UserForgotPassword from './pages/userForgotPassword.page';
 import ResetPassword from './pages/reset-password.page';
+import WeatherPage from './pages/weather.page';
 
 export const UserContext = createContext({});
 
@@ -48,6 +49,7 @@ const App = () => {
             <Route path='/signup' element={<UserAuthForm type='sign-up' />} />
             <Route path='/userforgotpassword' element={<UserForgotPassword />} />
             <Route path='/reset-password' element={<ResetPassword />} />
+            <Route path='/weather' element={<WeatherPage />} />
             <Route path='*' element={<PageNotFound />} />
           </Route>
         </Routes>
