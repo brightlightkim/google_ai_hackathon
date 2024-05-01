@@ -34,11 +34,15 @@
 POST http://localhost:3000/build-travel-plan
 Content-Type: application/json
 
-{
+{   
+    "purpose": "honeymoon",
+    "travelWith": "Car", 
+    "specificActivity": "school tour, museum, hiking, shopping, eating, etc.",
     "travelTo": "Provo, UT", 
     "travelFrom": "South Korea", 
-    "travelWith": "Car", 
+    "budget" : "$5000",
+    "numPeople": "2",
     "fromDate": "May 6", 
-    "toDate": "May 9", 
-    "specificActivity": "school tour, museum, hiking, shopping, eating, etc."
+    "toDate": "May 9"
+    
 }

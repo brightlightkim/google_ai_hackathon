@@ -1176,7 +1176,7 @@ server.post('/check-verification-token', async (req, res) => {
 });
 
 server.post('/build-travel-plan', async (req, res) => {
-  let { travelTo, travelFrom, travelWith, fromDate, toDate, specificActivity } =
+  let { purpose, travelWith, specificActivity, travelTo, travelFrom, budget, numPeople, fromDate, toDate } =
     req.body;
   const MODEL_NAME = 'gemini-1.5-pro-latest';
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -1214,15 +1214,99 @@ server.post('/build-travel-plan', async (req, res) => {
     history: [],
   });
 
-  const context_prompt =
-    'User wants to build a travel plan. You are helpimg the user with provided information. Your response is going to coverted to json file. The query includes request_promt which is the form that the final travel plan should follow.';
-  const request_prompt = '';
-  const example_prompt = '';
-  const query = `${context_prompt}\nUser's preference: ${travelTo}, ${travelFrom}, ${travelWith}, ${fromDate} to ${toDate}, ${specificActivity}\nrequest_prompt: ${request_prompt}\nexample_prompt: ${example_prompt}`;
+  const context_prompt = `User wants to build a travel plan. You are helping the user with provided information
+                            User would like to go ${travelTo} from ${travelFrom} from ${fromDate} to ${toDate}.\n
+                            I will travel with ${travelWith}\n
+                            Traveling style would be ${purpose}.\n 
+                            and the number of traveler would be ${numPeople}.\n
+                            and the buget of this trip would be ${budget}.\n
+                            I want to do these activities: ${specificActivity}.
+                            When you consider the activities, please consider the distance. Choose the first activities based on the closest one from the current location.
+                            `; 
+  const request_prompt = `Your response is going to convert to json file.\n`;
+  const example_prompt = `
+                            {
+                          "Recommand Clothes": {
+                            "Top": "",
+                            "Bottom": "",
+                            "Shoes": "",
+                        },
+                        "Daily Planner": {
+                            "Day1": {
+                            "Breakfast": {
+                                "Time": "",
+                                "Time Zone": "",
+                                "Location":"",
+                                "Menu": "",
+                                "Price": "",
+                            },
+                            "Activity1":{
+                                "Time":"",
+                                "Time Zone": "",
+                                "Location":"",
+                                "Name":"",
+                                "Type":"",
+                                "Price":""
+                            }
+                            
+                            "Lunch": {
+                                "Time": "",
+                                "Time Zone": "",
+                                "Location":,
+                                "Menu": "",
+                                "Price": ""
+                            },
+                            "Activity2":{
+                                "Time":"",
+                                "Time Zone": "",
+                                "Location":"",
+                                "Name":"",
+                                "Type":"",
+                                "Price":""
+                            }
+                            "Dinner": {
+                                "Time": "",
+                                "Time Zone": "",
+                                "Location":"",
+                                "Menu": "",
+                                "Price": ""
+                            },
+                            "Activity3":{
+                                "Time":"",
+                                "Time Zone": "",
+                                "Location":"",
+                                "Name":"",
+                                "Type":"",
+                                "Price":""
+                            }
+                            },
+                            "Day2": {
+                            // Similar structure for Day2
+                            }
+                            // Continue for more days
+                        },
+                        "Total Budget": {
+                            "Range": "",
+                            "Food price": "",
+                            "Transportation": "",
+                            "Hotel": "",
+                            "Flight": "",
+                            "Activity": "","Total": ""
+                        }
+                        }
+
+                            `;
+
+  const query = `${context_prompt}\n,request_prompt: ${request_prompt}\nexample_prompt: ${example_prompt}`;
 
   const result = await chat.sendMessage(query);
+  const cleanedRes = result.response.candidates[0].content.parts[0].text.replace(/\n/g, '');
+  const second = cleanedRes.replace(/```json/g, '');
+  const third = second.replace(/```/,'');
+  const forth = third.replace(/\\/,'');
+console.log(forth);
   // return res.status(200).json(JSON.parse(result));
-  return res.status(200).json(result.response.candidates[0].content.parts[0].text);
+return res.status(200).json(forth);
 });
 
 server.listen(PORT, () => {
