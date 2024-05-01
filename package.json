@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@google/generative-ai": "^0.9.0",
+    "axios": "^1.6.8",
+    "dotenv": "^16.4.5",
+    "needle": "^3.3.1"
+  }
+}
