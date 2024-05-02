@@ -18,7 +18,7 @@ const getWeather = async (location) => {
     return response.data;
   } catch (error) {
     console.error('Weather API error:', error);
-    throw error; // 오류를 다시 throw하여 호출자가 처리할 수 있도록 합니다.
+    throw error;
   }
 };
 
