@@ -20,8 +20,8 @@ import {
   HarmCategory,
   HarmBlockThreshold,
 } from '@google/generative-ai';
-import {getLocationDetails, getLocationReviews, getLocationPhotoes} from './api/tripadvisorApi.js'
-
+import {getLocationDetails, getLocationReviews, getLocationPhotos} from './api/tripadvisorApi.js'
+import { getDestid } from './api/booking.comApi.js';
 const server = express();
 let PORT = 3000;
 
@@ -1255,14 +1255,29 @@ server.get('/getLocationReviews', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-server.get('/getLocationPhotoes', async (req, res) => {
+server.get('/getLocationPhotos', async (req, res) => {
   let { prompt } = req.body;
   try {
-    const locationPhotoes = await getLocationPhotoes(prompt);
+    const locationPhotoes = await getLocationPhotos(prompt);
     if (locationPhotoes) {
       res.json({ message: 'API is working', locationPhotoes: locationPhotoes});
     } else {
       res.status(500).json({ error: 'Failed to get location ID' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+server.get('/searchDestination', async (req, res) => {
+  let { prompt } = req.body;
+  try {
+    const searchResults = await getDestid(prompt);
+    if (searchResults) {
+      res.json({ message: 'API is working', searchResults: searchResults});
+    } else {
+      res.status(500).json({ error: 'Failed to get Destination' });
     }
   } catch (error) {
     console.error('Error:', error);

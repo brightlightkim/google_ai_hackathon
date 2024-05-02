@@ -43,5 +43,9 @@
 #     "specificActivity": "school tour, museum, hiking, shopping, eating, etc."
 # }
 
-GET http://localhost:3000/getLocationReviews
+GET http://localhost:3000/searchDestination
 Content-Type: application/json
+
+{
+    "prompt": "london eye"
+}
