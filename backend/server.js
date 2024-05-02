@@ -20,7 +20,7 @@ import {
   HarmCategory,
   HarmBlockThreshold,
 } from '@google/generative-ai';
-import { getTweets } from './api/x_tweets_search.js';
+import { gethashtagsearch } from './api/Instagram_search.js';
 
 const server = express();
 let PORT = 3000;
@@ -1226,23 +1226,21 @@ server.post('/build-travel-plan', async (req, res) => {
   return res.status(200).json(result.response.candidates[0].content.parts[0].text);
 });
 
-server.get('/search-recent-tweet', async (req, res) => {
-  let { location } = req.body;
-  location = location || "provo";
+
+server.get('/hashtag-search', async (req, res) => {
+  let { prompt } = req.body;
   try {
-    const tweets = await getTweets(location);
-    console.log(tweets)
-    if (tweets) {
-      res.json({ message: 'API is working', tweets:tweets});
+    const hashtagphotos = await gethashtagsearch(prompt);
+    if (hashtagphotos) {
+      res.json({ message: 'API is working', hashtagphotos: hashtagphotos});
     } else {
-      res.status(500).json({ error: 'Failed to get tweets' });
+      res.status(500).json({ error: 'Failed to get prompt' });
     }
   } catch (error) {
     console.error('Error:', error);
-    res.status(500).json({ error: error.message});
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
-
 
 
 server.listen(PORT, () => {
