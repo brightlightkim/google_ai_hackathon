@@ -20,6 +20,7 @@ import {
   HarmCategory,
   HarmBlockThreshold,
 } from '@google/generative-ai';
+import { getTweets } from './api/x_tweets_search.js';
 
 const server = express();
 let PORT = 3000;
@@ -1224,6 +1225,25 @@ server.post('/build-travel-plan', async (req, res) => {
   // return res.status(200).json(JSON.parse(result));
   return res.status(200).json(result.response.candidates[0].content.parts[0].text);
 });
+
+server.get('/search-recent-tweet', async (req, res) => {
+  let { location } = req.body;
+  location = location || "provo";
+  try {
+    const tweets = await getTweets(location);
+    console.log(tweets)
+    if (tweets) {
+      res.json({ message: 'API is working', tweets:tweets});
+    } else {
+      res.status(500).json({ error: 'Failed to get tweets' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: error.message});
+  }
+});
+
+
 
 server.listen(PORT, () => {
   console.log('listening on port -> ' + PORT);
