@@ -43,7 +43,7 @@
 #     "specificActivity": "school tour, museum, hiking, shopping, eating, etc."
 # }
 
-GET http://localhost:3000/getLocationReviews
+#GET http://localhost:3000/getLocationReviews
 # Content-Type: application/json
 
 # {
