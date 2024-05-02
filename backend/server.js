@@ -21,7 +21,7 @@ import {
   HarmBlockThreshold,
 } from '@google/generative-ai';
 import {getLocationDetails, getLocationReviews, getLocationPhotos} from './api/tripadvisorApi.js'
-import { getDestid } from './api/booking.comApi.js';
+import { getDestid, getHotels } from './api/booking.comApi.js';
 const server = express();
 let PORT = 3000;
 
@@ -1274,6 +1274,23 @@ server.get('/searchDestination', async (req, res) => {
   let { prompt } = req.body;
   try {
     const searchResults = await getDestid(prompt);
+    // console.log(searchResults)
+    if (searchResults) {
+      res.json({ message: 'API is working', searchResults: searchResults});
+    } else {
+      res.status(500).json({ error: 'Failed to get Destination' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+server.get('/searchHotels', async (req, res) => {
+  // need prompt(searchQuery), arrival date, and departure date
+  let { prompt, arrival, departure } = req.body;
+  try {
+    const searchResults = await getHotels(prompt,arrival,departure);
     if (searchResults) {
       res.json({ message: 'API is working', searchResults: searchResults});
     } else {
