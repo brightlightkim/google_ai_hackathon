@@ -21,6 +21,7 @@ import {
   HarmBlockThreshold,
 } from '@google/generative-ai';
 import getWeather from './api/real_time_weather.js';
+import {getLocationDetails, getLocationReviews, getLocationPhotoes} from './api/tripadvisorApi.js'
 
 const server = express();
 let PORT = 3000;
@@ -1224,16 +1225,6 @@ server.post('/build-travel-plan', async (req, res) => {
   const result = await chat.sendMessage(query);
   // return res.status(200).json(JSON.parse(result));
   return res.status(200).json(result.response.candidates[0].content.parts[0].text);
-});
-
-server.get('/weather', async (req, res) => {
-  const { location } = req.query;
-  try {
-    const weatherData = await getWeather(location);
-    return res.json(weatherData);
-  } catch (error) {
-    return res.status(500).json({ error: 'Internal server error' });
-  }
 });
 
 server.listen(PORT, () => {
