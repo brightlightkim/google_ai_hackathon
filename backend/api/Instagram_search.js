@@ -1,26 +1,21 @@
-import axios from "axios";
-const token = process.env.X_BEARER_TOKEN;
-const endpointUrl = "https://api.twitter.com/2/tweets/search/recent";
+import axios from 'axios';
+const apikey = process.env.INSTAGRAM_KEY;
 
-export async function getTweets(location) {
-  const params = {
-    'query': `#travel has:media near:${location} -is:retweet`,
-    'tweet.fields': 'author_id,media'
-  }
-
-  const headers = {
-    "User-Agent": "v2RecentSearchJS",
-    "Authorization": `Bearer ${token}`
-  }
-
+export async function getHashtagSearch(prompt) {
   try {
-      const response = await axios.get(endpointUrl, {
-          params,
-          headers
-      });
-      return response.data;
+    const options = {
+      method: 'GET',
+      url: 'https://instagram-scraper-api2.p.rapidapi.com/v1/hashtag',
+      params: { hashtag: prompt },
+      headers: {
+        'X-RapidAPI-Key': apikey,
+        'X-RapidAPI-Host': 'instagram-scraper-api2.p.rapidapi.com'
+      }
+    };
+    const response = await axios.request(options);
+    console.log(response.data);
+    return response.data
   } catch (error) {
-    // console.error('Error:', error);
-    return null;
+    console.error(error);
   }
 }

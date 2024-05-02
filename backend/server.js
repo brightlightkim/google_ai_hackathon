@@ -20,7 +20,7 @@ import {
   HarmCategory,
   HarmBlockThreshold,
 } from '@google/generative-ai';
-import { gethashtagsearch } from './api/Instagram_search.js';
+import { getHashtagSearch } from './api/Instagram_search.js';
 
 const server = express();
 let PORT = 3000;
@@ -1230,7 +1230,8 @@ server.post('/build-travel-plan', async (req, res) => {
 server.get('/hashtag-search', async (req, res) => {
   let { prompt } = req.body;
   try {
-    const hashtagphotos = await gethashtagsearch(prompt);
+    const hashtagphotos = await getHashtagSearch(prompt);
+    console.log(hashtagphotos)
     if (hashtagphotos) {
       res.json({ message: 'API is working', hashtagphotos: hashtagphotos});
     } else {
