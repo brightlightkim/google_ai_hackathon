@@ -1175,6 +1175,11 @@ server.post('/check-verification-token', async (req, res) => {
     });
 });
 
+// server.post('/city-picture', async(req, res) =>{
+//   let {city} = req.body;
+
+// })
+
 server.post('/build-travel-plan', async (req, res) => {
   let { purpose, travelWith, specificActivity, travelTo, travelFrom, budget, numPeople, fromDate, toDate } =
     req.body;
@@ -1239,6 +1244,7 @@ server.post('/build-travel-plan', async (req, res) => {
                                 "Location":"",
                                 "Menu": "",
                                 "Price": "",
+                
                             },
                             "Activity1":{
                                 "Time":"",
@@ -1291,22 +1297,23 @@ server.post('/build-travel-plan', async (req, res) => {
                             "Transportation": "",
                             "Hotel": "",
                             "Flight": "",
-                            "Activity": "","Total": ""
+                            "Activity": "",
+                            "Total": ""
                         }
-                        }
-
-                            `;
+                        } `;
 
   const query = `${context_prompt}\n,request_prompt: ${request_prompt}\nexample_prompt: ${example_prompt}`;
 
+ 
   const result = await chat.sendMessage(query);
+  
   const cleanedRes = result.response.candidates[0].content.parts[0].text.replace(/\n/g, '');
   const second = cleanedRes.replace(/```json/g, '');
   const third = second.replace(/```/,'');
   const forth = third.replace(/\\/,'');
-console.log(forth);
+  // console.log(forth);
   // return res.status(200).json(JSON.parse(result));
-return res.status(200).json(forth);
+  return res.status(200).json(forth);
 });
 
 server.listen(PORT, () => {
