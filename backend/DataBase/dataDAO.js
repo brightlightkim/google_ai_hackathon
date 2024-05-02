@@ -1,6 +1,6 @@
 import sql from './db.js';
 
-async function savePlan(id) {
+async function savePlan(id, plan) {
     try{
       const existingPlan = await sql`
        SELECT id FROM travelPlan WHERE id = ${id}

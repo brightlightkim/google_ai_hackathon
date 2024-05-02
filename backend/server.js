@@ -1360,15 +1360,35 @@ server.get('/getLocationPhotoes', async (req, res) => {
 server.post('/save-data-supabase', async(req, res) =>{
   let {id, prompt} = req.body;
   try{
-    const success = await savePlan(id);
+    const success = await savePlan(id, prompt);
+    if (success){
+      res.json({ message: 'It is successfully saving the prompt'});
+    }else{
+      res.status(500).json({ error: 'Failed to save the prompt' });
+    }
   }catch (error){
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
   
- 
   return res.status(200);
+});
 
+server.get('/get-data-supabase', async (req, res) => {
+  let { id } = req.body;
+  try {
+    const plan = await getPlan(id);
+    if (plan) {
+      res.json({ message: 'It is successfully saving the prompt' });
+    }else{
+      res.status(500).json({ error: 'Failed to get the prompt' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+
+  return res.status(200).json(plan);
 });
 
 server.listen(PORT, () => {
