@@ -20,6 +20,7 @@ import {
   HarmCategory,
   HarmBlockThreshold,
 } from '@google/generative-ai';
+import {getLocationDetails, getLocationReviews, getLocationPhotoes} from './api/tripadvisorApi.js'
 
 const server = express();
 let PORT = 3000;
@@ -1223,6 +1224,50 @@ server.post('/build-travel-plan', async (req, res) => {
   const result = await chat.sendMessage(query);
   // return res.status(200).json(JSON.parse(result));
   return res.status(200).json(result.response.candidates[0].content.parts[0].text);
+});
+
+
+server.get('/getLocationDetails', async (req, res) => {
+  let { prompt } = req.body;
+  try {
+    const locationDetails = await getLocationDetails(prompt);
+    if (locationDetails) {
+      res.json({ message: 'API is working', locationDetails: locationDetails});
+    } else {
+      res.status(500).json({ error: 'Failed to get location ID' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+server.get('/getLocationReviews', async (req, res) => {
+  let { prompt } = req.body;
+  try {
+    const locationReviews = await getLocationReviews(prompt);
+    if (locationReviews) {
+      res.json({ message: 'API is working', locationReviews: locationReviews});
+    } else {
+      res.status(500).json({ error: 'Failed to get location ID' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+server.get('/getLocationPhotoes', async (req, res) => {
+  let { prompt } = req.body;
+  try {
+    const locationPhotoes = await getLocationPhotoes(prompt);
+    if (locationPhotoes) {
+      res.json({ message: 'API is working', locationPhotoes: locationPhotoes});
+    } else {
+      res.status(500).json({ error: 'Failed to get location ID' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 server.listen(PORT, () => {
