@@ -31,9 +31,18 @@
 #     "newPassword": "Ehlswkd66!!"
 # }
 
-POST http://localhost:3000/check-verification-token
+# POST http://localhost:3000/check-verification-token
+# Content-Type: application/json
+
+# {
+#     "verificationToken": "f8j7ljr60h9nld7cxw5qc"
+# }
+
+POST http://localhost:3000/provide-videos
 Content-Type: application/json
 
 {
-    "verificationToken": "f8j7ljr60h9nld7cxw5qc"
+    "location": "Paris, France",
+    "date": "05-01-2024",
+    "theme": "Honeymoon"
 }
