@@ -1,12 +1,13 @@
-import { createContext, useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
-import { lookInSession } from "./common/session";
-import Navbar from "./components/navbar.component";
-import PageNotFound from "./pages/404.page";
-import HomePage from "./pages/home.page";
-import ResetPassword from "./pages/reset-password.page";
-import UserAuthForm from "./pages/userAuthForm.page";
-import UserForgotPassword from "./pages/userForgotPassword.page";
+import { Routes, Route } from 'react-router-dom';
+import Navbar from './components/navbar.component';
+import UserAuthForm from './pages/userAuthForm.page';
+import { createContext, useEffect, useState } from 'react';
+import { lookInSession } from './common/session';
+import HomePage from './pages/home.page';
+import PageNotFound from './pages/404.page';
+import UserForgotPassword from './pages/userForgotPassword.page';
+import ResetPassword from './pages/reset-password.page';
+import Map from './components/map.component';
 
 export const UserContext = createContext({});
 
@@ -54,6 +55,7 @@ const App = () => {
               element={<UserForgotPassword />}
             />
             <Route path='/reset-password' element={<ResetPassword />} />
+            <Route path='/map' element={<Map /> }/>
             <Route path='*' element={<PageNotFound />} />
           </Route>
         </Routes>
