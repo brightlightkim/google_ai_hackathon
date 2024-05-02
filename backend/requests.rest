@@ -31,8 +31,8 @@
 #     "newPassword": "Ehlswkd66!!"
 # }
 
-#POST http://localhost:3000/build-travel-plan
-#Content-Type: application/json
+# POST http://localhost:3000/build-travel-plan
+# Content-Type: application/json
 
 
 #{   
@@ -50,64 +50,3 @@
 
 POST http://localhost:3000/save-data-supabase
 Content-Type: application/json
-
-{
-    "id": 1,
-    "plan": {  
-        "Recommand Clothes": 
-        {    
-        "Top": "T-shirts, long-sleeve shirts, sweaters, light jacket",   
-        "Bottom": "Jeans, comfortable pants, hiking pants",    
-        "Shoes": "Comfortable walking shoes, hiking boots (if planning to hike)"  
-     },  
-     "Daily Planner": 
-     {    "Day1": {      
-        "Breakfast": {        
-            "Time": "8:00 AM",       
-             "Time Zone": "MST (Mountain Standard Time)",        
-             "Location": "Provo Bakery",        
-             "Menu": "Pastries, coffee, breakfast sandwiches",       
-              "Price": "$15-$20"      
-              },      
-              "Activity1": {        
-                "Time": "9:30 AM",       
-                 "Time Zone": "MST",        
-                 "Location": "Brigham Young University",        
-                 "Name": "Campus Tour",        
-                 "Type": "School Tour",        
-                 "Price": "Free (self-guided) or $5 (guided)"     
-                  },      
-              "Lunch": {        
-                "Time": "12:00 PM",        
-                "Time Zone": "MST",        
-                "Location": "Station 22 Cafe",        
-                "Menu": "American cuisine, salads, sandwiches",        
-                "Price": "$20-$25"      
-                },      
-                "Activity2": {       
-                     "Time": "2:00 PM",        
-                     "Time Zone": "MST",        
-                     "Location": "Provo City Center",       
-                     "Name": "Shopping at The Shops at Riverwoods",        
-                     "Type": "Shopping",        
-                     "Price": "Varies depending on purchases"      
-                     },      
-                "Dinner": {        
-                    "Time": "7:00 PM",        
-                    "Time Zone": "MST",        
-                    "Location": "Black Sheep Cafe",        
-                    "Menu": "New American cuisine, steaks, seafood",        
-                    "Price": "$30-$40"      
-                    }    },    
-            "Total Budget": {     
-                "Range": "$4,000 - $5,000",    
-                "Food price": "$600 - $800",    
-                "Transportation": "$500 - $700 (estimated car rental and gas)",     
-                "Hotel": "$1,500 - $2,000 (estimated based on Provo hotel rates)",     
-                "Flight": "$1,000 - $1,500 (estimated roundtrip from South Korea)",    
-                "Activity": "$400 - $600",   
-                "Total": "$4,000 - $5,000"   
-                }}
-                }
-}
-

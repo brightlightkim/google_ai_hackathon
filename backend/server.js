@@ -21,6 +21,8 @@ import {
   HarmCategory,
   HarmBlockThreshold,
 } from '@google/generative-ai';
+import getWeather from './api/real_time_weather.js';
+import axios from 'axios';
 import {getLocationDetails, getLocationReviews, getLocationPhotoes} from './api/tripadvisorApi.js'
 
 const server = express();
@@ -1313,16 +1315,11 @@ server.post('/build-travel-plan', async (req, res) => {
   return res.status(200).json(forth);
 });
 
-
-server.get('/getLocationDetails', async (req, res) => {
-  let { prompt } = req.body;
+server.get('/weather', async (req, res) => {
+  const { location } = req.query;
   try {
-    const locationDetails = await getLocationDetails(prompt);
-    if (locationDetails) {
-      res.json({ message: 'API is working', locationDetails: locationDetails});
-    } else {
-      res.status(500).json({ error: 'Failed to get location ID' });
-    }
+    const weatherData = await getWeather(location);
+    return res.json(weatherData);
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -1390,6 +1387,65 @@ server.get('/get-data-supabase', async (req, res) => {
 
   return res.status(200).json(plan);
 });
+
+server.post('/place-reviews', async (req, res) => {
+  const headers = {
+    "Content-Type": "application/json",
+    "X-Goog-Api-Key": process.env.GOOGLE_MAPS_API_KEY,
+    "X-Goog-FieldMask": "places.id,places.rating,places.reviews"
+  }
+  const query = req.body.textQuery;
+  const searchUrl = 'https://places.googleapis.com/v1/places:searchText';
+
+  if (!query) {
+    return res.status(400).json({ message: 'Missing query parameter' });
+  }
+
+  try {
+    // invoke the Google Places Text Search API
+    const requestData = {
+      "textQuery": query
+    }
+
+    const config = {
+      headers: {
+        ...headers
+      }
+    }
+
+    const response = await axios.post(searchUrl, requestData, config);
+    // Return the response from the Google Places API
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+server.get('/place-photos', async (req, res) => {
+  const headers = {
+    "Content-Type": "application/json",
+    "X-Goog-Api-Key": process.env.GOOGLE_MAPS_API_KEY,
+    "X-Goog-FieldMask": "photos"
+  }
+
+  try {
+    const config = {
+      headers: {
+        ...headers
+      }
+    }
+    
+    const placeId = req.body.placeId
+    
+    const url = `https://places.googleapis.com/v1/places/${placeId}`;
+    
+    const response = await axios.get(url, config);
+    
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+})
 
 server.listen(PORT, () => {
   console.log('listening on port -> ' + PORT);
