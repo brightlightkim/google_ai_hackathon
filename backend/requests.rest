@@ -43,22 +43,17 @@
 #     "specificActivity": "school tour, museum, hiking, shopping, eating, etc."
 # }
 
-#GET http://localhost:3000/getLocationReviews
+# POST https://places.googleapis.com/v1/places:searchText?fields=* HTTP/1.1
 # Content-Type: application/json
+# X-Goog-Api-Key: AIzaSyDqfOcm6kCq9yVXAuAqHJEBNwOi7iZOvs8
+# X-Goog-FieldMask: *
 
 # {
-#     "verificationToken": "f8j7ljr60h9nld7cxw5qc"
+#     "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
 # }
 
-POST http://localhost:3000/provide-videos
-Content-Type: application/json
-
-{
-    "location": "Paris, France",
-    "date": "05-01-2024",
-    "theme": "Honeymoon"
-}
-
+POST http://localhost:3000/place-reviews
+>>>>>>> main
 # POST http://localhost:3000/build-travel-plan
 # Content-Type: application/json
 
@@ -69,4 +64,19 @@ Content-Type: application/json
 #     "fromDate": "May 6", 
 #     "toDate": "May 9", 
 #     "specificActivity": "school tour, museum, hiking, shopping, eating, etc."
+# }
+
+GET http://localhost:3000/getLocationReviews
+Content-Type: application/json
+
+{
+    "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
+}
+
+# GET http://localhost:3000/place-photos
+# Content-Type: application/json
+
+# {
+#     "placeId": "ChIJs5ydyTiuEmsR0fRSlU0C7k0"
+>>>>>>> main
 # }
