@@ -15,6 +15,7 @@ import aws from 'aws-sdk';
 import Notification from './Schema/Notification.js';
 import Comment from './Schema/Comment.js';
 import fs from 'fs';
+import *as functions from './DataBase/dataDAO.js';
 import {
   GoogleGenerativeAI,
   HarmCategory,
@@ -1176,11 +1177,6 @@ server.post('/check-verification-token', async (req, res) => {
     });
 });
 
-// server.post('/city-picture', async(req, res) =>{
-//   let {city} = req.body;
-
-// })
-
 server.post('/build-travel-plan', async (req, res) => {
   let { purpose, travelWith, specificActivity, travelTo, travelFrom, budget, numPeople, fromDate, toDate } =
     req.body;
@@ -1359,6 +1355,20 @@ server.get('/getLocationPhotoes', async (req, res) => {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
+});
+
+server.post('/save-data-supabase', async(req, res) =>{
+  let {id, prompt} = req.body;
+  try{
+    const success = await savePlan(id);
+  }catch (error){
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+  
+ 
+  return res.status(200);
+
 });
 
 server.listen(PORT, () => {
