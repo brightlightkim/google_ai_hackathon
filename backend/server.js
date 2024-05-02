@@ -20,6 +20,7 @@ import {
   HarmCategory,
   HarmBlockThreshold,
 } from '@google/generative-ai';
+import getWeather from './api/real_time_weather.js';
 import axios from 'axios';
 import {getLocationDetails, getLocationReviews, getLocationPhotoes} from './api/tripadvisorApi.js'
 
@@ -1227,16 +1228,11 @@ server.post('/build-travel-plan', async (req, res) => {
   return res.status(200).json(result.response.candidates[0].content.parts[0].text);
 });
 
-
-server.get('/getLocationDetails', async (req, res) => {
-  let { prompt } = req.body;
+server.get('/weather', async (req, res) => {
+  const { location } = req.query;
   try {
-    const locationDetails = await getLocationDetails(prompt);
-    if (locationDetails) {
-      res.json({ message: 'API is working', locationDetails: locationDetails});
-    } else {
-      res.status(500).json({ error: 'Failed to get location ID' });
-    }
+    const weatherData = await getWeather(location);
+    return res.json(weatherData);
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -1296,12 +1292,7 @@ server.post('/place-reviews', async (req, res) => {
       }
     }
 
-    console.log("Config: ", config);
-    console.log("Request Data: ", requestData);
-    console.log("Search URL: ", searchUrl);
     const response = await axios.post(searchUrl, requestData, config);
-
-    console.log("Response: ", response);
     // Return the response from the Google Places API
     res.json(response.data);
   } catch (error) {

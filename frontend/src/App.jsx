@@ -8,7 +8,7 @@ import PageNotFound from './pages/404.page';
 import UserForgotPassword from './pages/userForgotPassword.page';
 import ResetPassword from './pages/reset-password.page';
 import Map from './components/map.component';
-
+import WeatherPage from './pages/weather.page';
 export const UserContext = createContext({});
 
 export const ThemeContext = createContext({});
@@ -55,6 +55,7 @@ const App = () => {
               element={<UserForgotPassword />}
             />
             <Route path='/reset-password' element={<ResetPassword />} />
+            <Route path='/weather' element={<WeatherPage />} />
             <Route path='/map' element={<Map /> }/>
             <Route path='*' element={<PageNotFound />} />
           </Route>
