@@ -13,19 +13,22 @@ export const UserContext = createContext({});
 
 export const ThemeContext = createContext({});
 
-const darkThemePreference = () => window.matchMedia('(prefers-color-scheme: dark)').matches;
+const darkThemePreference = () =>
+  window.matchMedia("(prefers-color-scheme: dark)").matches;
 
 const App = () => {
   const [userAuth, setUserAuth] = useState(() => {
-    const userInSession = lookInSession('user');
+    const userInSession = lookInSession("user");
     return userInSession ? JSON.parse(userInSession) : { access_token: null };
   });
 
-  const [theme, setTheme] = useState(()=> darkThemePreference() ? 'dark' : 'light');
+  const [theme, setTheme] = useState(() =>
+    darkThemePreference() ? "dark" : "light"
+  );
 
   useEffect(() => {
-    let userInSession = lookInSession('user');
-    let themeInSession = lookInSession('theme');
+    let userInSession = lookInSession("user");
+    let themeInSession = lookInSession("theme");
 
     userInSession
       ? setUserAuth(JSON.parse(userInSession))
@@ -33,10 +36,10 @@ const App = () => {
 
     themeInSession
       ? setTheme(() => {
-          document.body.setAttribute('data-theme', themeInSession);
+          document.body.setAttribute("data-theme", themeInSession);
           return themeInSession;
         })
-      : document.body.setAttribute('data-theme', theme);
+      : document.body.setAttribute("data-theme", theme);
   }, []);
 
   return (
@@ -47,7 +50,10 @@ const App = () => {
             <Route index element={<HomePage />} />
             <Route path='/signin' element={<UserAuthForm type='sign-in' />} />
             <Route path='/signup' element={<UserAuthForm type='sign-up' />} />
-            <Route path='/userforgotpassword' element={<UserForgotPassword />} />
+            <Route
+              path='/userforgotpassword'
+              element={<UserForgotPassword />}
+            />
             <Route path='/reset-password' element={<ResetPassword />} />
             <Route path='/map' element={<Map /> }/>
             <Route path='*' element={<PageNotFound />} />

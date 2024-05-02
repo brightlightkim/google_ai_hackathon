@@ -53,6 +53,19 @@
 # }
 
 POST http://localhost:3000/place-reviews
+# POST http://localhost:3000/build-travel-plan
+# Content-Type: application/json
+
+# {
+#     "travelTo": "Provo, UT", 
+#     "travelFrom": "South Korea", 
+#     "travelWith": "Car", 
+#     "fromDate": "May 6", 
+#     "toDate": "May 9", 
+#     "specificActivity": "school tour, museum, hiking, shopping, eating, etc."
+# }
+
+GET http://localhost:3000/getLocationReviews
 Content-Type: application/json
 
 {
