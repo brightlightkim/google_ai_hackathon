@@ -1229,7 +1229,7 @@ server.post('/build-travel-plan', async (req, res) => {
 server.post('/place-reviews', async (req, res) => {
   const headers = {
     "Content-Type": "application/json",
-    "X-Goog-Api-Key": "AIzaSyDqfOcm6kCq9yVXAuAqHJEBNwOi7iZOvs8",
+    "X-Goog-Api-Key": process.env.GOOGLE_MAPS_API_KEY,
     "X-Goog-FieldMask": "*"
   }
   const query = req.body.textQuery;
