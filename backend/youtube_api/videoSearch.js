@@ -6,7 +6,7 @@ export async function searchVideosByCriteria(
   location,
   date,
   theme,
-  maxResults = 3
+  maxResults = 10
 ) {
   let query = "";
   try {
@@ -16,12 +16,12 @@ export async function searchVideosByCriteria(
     }
 
     if (location) {
-      query += ` ${location}`;
+      query += `${location}`;
     }
 
-    if (date) {
-      query += ` ${date}`;
-    }
+    // if (date) {
+    //   query += ` ${date}`;
+    // }
 
     if (theme) {
       query += ` ${theme}`;

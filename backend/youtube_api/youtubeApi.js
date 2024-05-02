@@ -3,14 +3,15 @@ import axios from "axios";
 
 const API_KEY = process.env.YOUTUBE_API_KEY;
 
-export async function searchVideos(query, maxResults = 3) {
+export async function searchVideos(query, maxResults = 10) {
   try {
     const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&part=snippet&type=video&q=${query}&maxResults=${maxResults}`;
+    console.log("MaxResults: ", maxResults);
     const response = await axios.get(url);
 
     const videoIdList = [];
     const videoLinks = [];
-    console.log(response.data.items);
+    console.log(response.data);
     // Extract video IDs from the response
     response.data.items.map((item) => {
       videoIdList.push(item.id.videoId);
