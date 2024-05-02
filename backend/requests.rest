@@ -58,3 +58,10 @@ Content-Type: application/json
 {
     "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
 }
+
+# GET http://localhost:3000/place-photos
+# Content-Type: application/json
+
+# {
+#     "placeId": "ChIJs5ydyTiuEmsR0fRSlU0C7k0"
+# }

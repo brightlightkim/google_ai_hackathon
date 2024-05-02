@@ -1230,10 +1230,10 @@ server.post('/place-reviews', async (req, res) => {
   const headers = {
     "Content-Type": "application/json",
     "X-Goog-Api-Key": process.env.GOOGLE_MAPS_API_KEY,
-    "X-Goog-FieldMask": "*"
+    "X-Goog-FieldMask": "places.id,places.rating,places.reviews"
   }
   const query = req.body.textQuery;
-  const searchUrl = 'https://places.googleapis.com/v1/places:searchText?fields=*';
+  const searchUrl = 'https://places.googleapis.com/v1/places:searchText';
 
   if (!query) {
     return res.status(400).json({ message: 'Missing query parameter' });
@@ -1263,6 +1263,32 @@ server.post('/place-reviews', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+server.get('/place-photos', async (req, res) => {
+  const headers = {
+    "Content-Type": "application/json",
+    "X-Goog-Api-Key": process.env.GOOGLE_MAPS_API_KEY,
+    "X-Goog-FieldMask": "photos"
+  }
+
+  try {
+    const config = {
+      headers: {
+        ...headers
+      }
+    }
+    
+    const placeId = req.body.placeId
+    
+    const url = `https://places.googleapis.com/v1/places/${placeId}`;
+    
+    const response = await axios.get(url, config);
+    
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+})
 
 server.listen(PORT, () => {
   console.log('listening on port -> ' + PORT);
