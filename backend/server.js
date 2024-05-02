@@ -11,11 +11,26 @@ import { getAuth } from "firebase-admin/auth";
 // added for youtube api
 import { searchVideosByCriteria } from "./youtube_api/videoSearch.js";
 // schema before
+<<<<<<< HEAD
 import User from "./Schema/User.js";
 import Blog from "./Schema/Blog.js";
 import aws from "aws-sdk";
 import Notification from "./Schema/Notification.js";
 import Comment from "./Schema/Comment.js";
+=======
+import User from './Schema/User.js';
+import Blog from './Schema/Blog.js';
+import aws from 'aws-sdk';
+import Notification from './Schema/Notification.js';
+import Comment from './Schema/Comment.js';
+import fs from 'fs';
+import {
+  GoogleGenerativeAI,
+  HarmCategory,
+  HarmBlockThreshold,
+} from '@google/generative-ai';
+import {getLocationDetails, getLocationReviews, getLocationPhotoes} from './api/tripadvisorApi.js'
+>>>>>>> origin/main
 
 const server = express();
 let PORT = 3000;
@@ -1153,7 +1168,11 @@ server.post("/add-verification-token", (req, res) => {
     });
 });
 
+<<<<<<< HEAD
 server.post("/check-verification-token", (req, res) => {
+=======
+server.post('/check-verification-token', async (req, res) => {
+>>>>>>> origin/main
   let { verificationToken } = req.body;
 
   console.log(verificationToken);
@@ -1171,6 +1190,7 @@ server.post("/check-verification-token", (req, res) => {
     });
 });
 
+<<<<<<< HEAD
 // YouTube API
 server.post("/provide-videos", async (req, res) => {
   try {
@@ -1184,9 +1204,106 @@ server.post("/provide-videos", async (req, res) => {
   } catch (error) {
     console.error("Error providing videos:", error);
     res.status(500).json({ error: "Internal Server Error" });
+=======
+server.post('/build-travel-plan', async (req, res) => {
+  let { travelTo, travelFrom, travelWith, fromDate, toDate, specificActivity } =
+    req.body;
+  const MODEL_NAME = 'gemini-1.5-pro-latest';
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+  const model = genAI.getGenerativeModel({ model: MODEL_NAME });
+
+  const generationConfig = {
+    temperature: 1,
+    topK: 0,
+    topP: 0.95,
+    maxOutputTokens: 8192,
+  };
+
+  const safetySettings = [
+    {
+      category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+    },
+    {
+      category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+    },
+    {
+      category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+    },
+    {
+      category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+    },
+  ];
+
+  const chat = model.startChat({
+    generationConfig,
+    safetySettings,
+    history: [],
+  });
+
+  const context_prompt =
+    'User wants to build a travel plan. You are helpimg the user with provided information. Your response is going to coverted to json file. The query includes request_promt which is the form that the final travel plan should follow.';
+  const request_prompt = '';
+  const example_prompt = '';
+  const query = `${context_prompt}\nUser's preference: ${travelTo}, ${travelFrom}, ${travelWith}, ${fromDate} to ${toDate}, ${specificActivity}\nrequest_prompt: ${request_prompt}\nexample_prompt: ${example_prompt}`;
+
+  const result = await chat.sendMessage(query);
+  // return res.status(200).json(JSON.parse(result));
+  return res.status(200).json(result.response.candidates[0].content.parts[0].text);
+});
+
+
+server.get('/getLocationDetails', async (req, res) => {
+  let { prompt } = req.body;
+  try {
+    const locationDetails = await getLocationDetails(prompt);
+    if (locationDetails) {
+      res.json({ message: 'API is working', locationDetails: locationDetails});
+    } else {
+      res.status(500).json({ error: 'Failed to get location ID' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+server.get('/getLocationReviews', async (req, res) => {
+  let { prompt } = req.body;
+  try {
+    const locationReviews = await getLocationReviews(prompt);
+    if (locationReviews) {
+      res.json({ message: 'API is working', locationReviews: locationReviews});
+    } else {
+      res.status(500).json({ error: 'Failed to get location ID' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+server.get('/getLocationPhotoes', async (req, res) => {
+  let { prompt } = req.body;
+  try {
+    const locationPhotoes = await getLocationPhotoes(prompt);
+    if (locationPhotoes) {
+      res.json({ message: 'API is working', locationPhotoes: locationPhotoes});
+    } else {
+      res.status(500).json({ error: 'Failed to get location ID' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+>>>>>>> origin/main
   }
 });
 
 server.listen(PORT, () => {
+<<<<<<< HEAD
   console.log("listening on port -> " + PORT);
+=======
+  console.log('listening on port -> ' + PORT);
+>>>>>>> origin/main
 });
