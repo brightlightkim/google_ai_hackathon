@@ -1290,6 +1290,34 @@ server.get('/place-photos', async (req, res) => {
   }
 })
 
+server.get('/place-id', async (req, res) => {
+  const headers = {
+    "Content-Type": "application/json",
+    "X-Goog-Api-Key": process.env.GOOGLE_MAPS_API_KEY,
+    "X-Goog-FieldMask": "id"
+  }
+
+  try {
+    const locationName = req.body.locationName;
+    // get the placeId from geocoding API
+    const geoUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${locationName}&key=${process.env.GOOGLE_MAPS_API_KEY}`;
+    const geoResponse = await axios.get(geoUrl);
+    console.log(geoResponse);
+
+    // extract the placeId of the location
+    const placeId = geoResponse.data.results[0].place_id;
+    console.log(placeId);
+
+    const body = {
+      placeId
+    }
+
+    res.json(body);    
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+})
+
 server.listen(PORT, () => {
   console.log('listening on port -> ' + PORT);
 });

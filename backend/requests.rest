@@ -52,12 +52,12 @@
 #     "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
 # }
 
-POST http://localhost:3000/place-reviews
-Content-Type: application/json
+# POST http://localhost:3000/place-reviews
+# Content-Type: application/json
 
-{
-    "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
-}
+# {
+#     "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
+# }
 
 # GET http://localhost:3000/place-photos
 # Content-Type: application/json
@@ -65,3 +65,10 @@ Content-Type: application/json
 # {
 #     "placeId": "ChIJs5ydyTiuEmsR0fRSlU0C7k0"
 # }
+
+GET http://localhost:3000/place-id
+Content-Type: application/json
+
+{
+    "locationName": "Eiffel Tower"
+}
