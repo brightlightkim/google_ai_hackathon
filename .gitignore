@@ -139,3 +139,7 @@ backend/.Rhistory
 .DS_Store
 
 backend/gemini_response.json
+
+# ignore all __pycache__ directories
+__pycache__/
+*__pycache__/*
