@@ -45,7 +45,7 @@ export async function getLocationPhotos(prompt) {
 
     for(let id in location_ids){
       const location_id = location_ids[id];
-      const url = `https://api.content.tripadvisor.com/api/v1/location/${location_id}/photos?key=${apikey}&limit=3`;
+      const url = `https://api.content.tripadvisor.com/api/v1/location/${location_id}/photos?key=${apikey}&limit=1`;
       const response = await axios.get(url);
       const data = response.data;
       locationPhotos.push(data);
@@ -64,7 +64,7 @@ export async function getLocationReviews(prompt) {
     const locationReviews = [];
     for(let id in location_ids){
       const location_id = location_ids[id];
-      const url = `https://api.content.tripadvisor.com/api/v1/location/${location_id}/reviews?key=${apikey}&limit=3`;
+      const url = `https://api.content.tripadvisor.com/api/v1/location/${location_id}/reviews?key=${apikey}&limit=1`;
       const response = await axios.get(url);
       const data = response.data;
       locationReviews.push(data);
