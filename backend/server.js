@@ -26,11 +26,9 @@ import {
 import { getHashtagSearch } from './api/Instagram_search.js';
 import getWeather from './api/real_time_weather.js';
 import axios from 'axios';
-import {
-  getLocationDetails,
-  getLocationReviews,
-  getLocationPhotoes,
-} from './api/tripadvisorApi.js';
+import {getLocationDetails, getLocationReviews, getLocationPhotos} from './api/tripadvisorApi.js'
+import { getDestid, getHotels } from './api/booking.comApi.js';
+import { getEntityId, getOneWayTrip, getRoundTrip } from './api/skyscannerApi.js';
 import { exec } from 'child_process';
 
 const server = express();
@@ -1214,9 +1212,24 @@ server.get('/weather', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+//tripadviosrapi
+server.get('/getLocationDetails', async (req, res) => {
+  let { prompt } = req.body;
+  try {
+    const locationDetails = await getLocationDetails(prompt);
+    if (locationDetails) {
+      res.json({ message: 'API is working', locationDetails: locationDetails});
+    } else {
+      res.status(500).json({ error: 'Failed to get location ID' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 server.get('/getLocationReviews', async (req, res) => {
-  let { prompt } = req.body;
+  let { prompt } = req.query;
   try {
     const locationReviews = await getLocationReviews(prompt);
     if (locationReviews) {
@@ -1229,10 +1242,10 @@ server.get('/getLocationReviews', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-server.get('/getLocationPhotoes', async (req, res) => {
-  let { prompt } = req.body;
+server.get('/getLocationPhotos', async (req, res) => {
+  let { prompt } = req.query;
   try {
-    const locationPhotoes = await getLocationPhotoes(prompt);
+    const locationPhotoes = await getLocationPhotos(prompt);
     if (locationPhotoes) {
       res.json({ message: 'API is working', locationPhotoes: locationPhotoes });
     } else {
@@ -1243,6 +1256,40 @@ server.get('/getLocationPhotoes', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+// booking.com api
+server.get('/searchDestination', async (req, res) => {
+  let { prompt } = req.body;
+  try {
+    const searchResults = await getDestid(prompt);
+    // console.log(searchResults)
+    if (searchResults) {
+      res.json({ message: 'API is working', searchResults: searchResults});
+    } else {
+      res.status(500).json({ error: 'Failed to get Destination' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+server.get('/searchHotels', async (req, res) => {
+  // need prompt(searchQuery), arrival date, and departure date
+  let { prompt, arrival, departure } = req.body;
+  try {
+    const searchResults = await getHotels(prompt,arrival,departure);
+    if (searchResults) {
+      res.json({ message: 'API is working', searchResults: searchResults});
+    } else {
+      res.status(500).json({ error: 'Failed to get Destination' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 server.post('/place-reviews', async (req, res) => {
   const headers = {
@@ -1291,18 +1338,17 @@ server.get('/place-photos', async (req, res) => {
       },
     };
 
-    const placeId = req.body.placeId;
+    const placeId = req.query.placeId;
 
     const url = `https://places.googleapis.com/v1/places/${placeId}`;
 
-    const response = await axios.get(url, config);
+    const response = await axios.post(url, config);
 
     res.json(response.data);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
-
 server.post('/build-travel-plan', async (req, res) => {
   let { travelTo, travelFrom, travelWith, fromDate, toDate, specificActivity } =
     req.body;
@@ -1332,6 +1378,52 @@ server.post('/build-travel-plan', async (req, res) => {
     }
   });
 });
+//sky scanner api
+server.get('/getEntityId', async (req, res) => {
+  let { prompt } = req.body;
+  try {
+    const searchResults = await getEntityId(prompt);
+    if (searchResults) {
+      res.json({ message: 'API is working', searchResults: searchResults});
+    } else {
+      res.status(500).json({ error: 'Failed to get Destination' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+server.get('/getRoundTrip', async (req, res) => {
+  let { fromCity, toCity, departDate, returnDate } = req.body;
+  try {
+    const searchResults = await getRoundTrip(fromCity, toCity, departDate, returnDate);
+    // console.log(searchResults);
+    if (searchResults) {
+      res.json({ message: 'API is working', searchResults: searchResults});
+    } else {
+      res.status(500).json({ error: 'Failed to get Destination' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+server.get('/getOneWayTrip', async (req, res) => {
+  let { fromCity, toCity, departDate } = req.body;
+  try {
+    const searchResults = await getOneWayTrip(fromCity, toCity, departDate);
+    // console.log(searchResults);
+    if (searchResults) {
+      res.json({ message: 'API is working', searchResults: searchResults});
+    } else {
+      res.status(500).json({ error: 'Failed to get Destination' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 
 server.get('/hashtag-search', async (req, res) => {
@@ -1350,6 +1442,34 @@ server.get('/hashtag-search', async (req, res) => {
   }
 });
 
+
+server.get('/place-id', async (req, res) => {
+  const headers = {
+    "Content-Type": "application/json",
+    "X-Goog-Api-Key": process.env.GOOGLE_MAPS_API_KEY,
+    "X-Goog-FieldMask": "id"
+  }
+
+  try {
+    const locationName = req.query.locationName;
+    // get the placeId from geocoding API
+    const geoUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${locationName}&key=${process.env.GOOGLE_MAPS_API_KEY}`;
+    const geoResponse = await axios.get(geoUrl);
+    console.log(geoResponse);
+
+    // extract the placeId of the location
+    const placeId = geoResponse.data.results[0].place_id;
+    console.log(placeId);
+
+    const body = {
+      placeId
+    }
+
+    res.json(body);    
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+})
 
 server.listen(PORT, () => {
   console.log('listening on port -> ' + PORT);
