@@ -61,7 +61,7 @@
     line-height: 50px;
   }
 
-  input {
+  /* input {
     position: absolute;
     width: 430px;
     outline: none;
@@ -72,7 +72,7 @@
     background: transparent;
     transition: 0.1s ease;
     z-index: 1111;
-  }
+  } */
 
   .where {
     position: absolute;
@@ -236,15 +236,17 @@ button:active {
   @apply text-lg font-semibold p-2;
 }
 
-/* .card button {
-  @apply w-full text-white py-2 rounded-b-lg;
+.input-editable {
+  border: #262626;
+  padding: 2px;
+  border-radius: 4px;
+  background-color: transparent;
+  width: 100%; /* 기본 너비 설정 */
+  height: 30px;
 }
-
-.cdx-settings-button[data-tune="withBorder"],
-.cdx-settings-button[data-tune="withBackground"],
-.cdx-settings-button[data-tune="stretched"] {
-  display: none;
-} */
+.input-editable:focus {
+  border-color: transparent;
+}
 
 .home .name {
   margin-right: 9px;
@@ -408,6 +410,7 @@ button:active {
   background: #262626;
   border-radius: 40px 0px 0px 40px;
   width: 19rem;
+  height: 90px;
   padding: 0px 20px;
   margin: 2px;
   display: flex;
@@ -417,7 +420,8 @@ button:active {
   background: linear-gradient(180deg, #f4f4f4, #6e6e6e);
 }
 .search-input-box-c {
-  width: 150px;
+  width: 200px;
+  height: 90px;
   background: #262626;
   padding: 0px 20px;
   margin: 2px;
@@ -431,6 +435,7 @@ button:active {
 .search-input-box-r {
   background: #262626;
   width: 19rem;
+  height: 90px;
   border-radius: 0px 40px 40px 0px;
   padding: 0px 20px;
   margin: 2px;
@@ -882,7 +887,7 @@ button:active {
   flex: 1;
   font-family: "Inter";
   font-weight: 500;
-  font-size: 18px;
+  font-size: 20px;
   color: #000000;
 }
 
@@ -891,5 +896,6 @@ button:active {
   max-width: 800px;
   height: auto;
   aspect-ratio: 16 / 9;
+  padding-left: 30px; /* 왼쪽 패딩 추가 */
   margin-right: 0;
 }

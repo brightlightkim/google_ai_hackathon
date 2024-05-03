@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+
 import gao from "../imgs/Gao.jpg";
 import guam from "../imgs/Guam.png";
 import korea from "../imgs/Korea.png";
 import paris from "../imgs/Paris.jpg";
 
 const HomePage = () => {
+  // State to manage display of input fields
+  const [editWhere, setEditWhere] = useState(false);
+  const [editWhen, setEditWhen] = useState(false);
+  const [editTheme, setEditTheme] = useState(false);
+
+  // Handlers for focus and blur events
+  const handleFocus = (setter) => {
+    setter(true);
+  };
+
+  const handleBlur = (setter) => {
+    setter(false);
+  };
+
   return (
-    <div class='home'>
+    <div className='home'>
       <div class='search-area'>
         <div class='heading'>
           <div class='ai-travel-planner'>AI Travel Planner</div>
@@ -19,9 +34,23 @@ const HomePage = () => {
             <div class='search-input-box-l'>
               <div class='container-8'>
                 <div className='text-lg text-gray-400 font-bold'>Where</div>
-                <span class='country-city-or-landmark'>
+                {/* <span class='country-city-or-landmark'>
                   Country, city, or landmark
-                </span>
+                </span> */}
+                {editWhere ? (
+                  <input
+                    className='input-editable'
+                    autoFocus
+                    onBlur={() => handleBlur(setEditWhere)}
+                  />
+                ) : (
+                  <span
+                    className='country-city-or-landmark'
+                    onClick={() => handleFocus(setEditWhere)}
+                  >
+                    Country, city, or landmark
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -29,7 +58,22 @@ const HomePage = () => {
             <div class='search-input-box-c'>
               <div class='container-8'>
                 <div className='text-lg text-gray-400 font-bold'>When</div>
-                <span class='country-city-or-landmark'>Add date</span>
+                {/* <span class='country-city-or-landmark'>Add date</span> */}
+                {editWhen ? (
+                  <input
+                    type='date'
+                    className='input-editable'
+                    autoFocus
+                    onBlur={() => handleBlur(setEditWhen)}
+                  />
+                ) : (
+                  <span
+                    className='country-city-or-landmark'
+                    onClick={() => handleFocus(setEditWhen)}
+                  >
+                    Add date
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -37,9 +81,23 @@ const HomePage = () => {
             <div class='search-input-box-r'>
               <div class='container-8'>
                 <div className='text-lg text-gray-400 font-bold'>Theme</div>
-                <span class='country-city-or-landmark'>
+                {/* <span class='country-city-or-landmark'>
                   Outdoor, museum, food...
-                </span>
+                </span> */}
+                {editTheme ? (
+                  <input
+                    className='input-editable'
+                    autoFocus
+                    onBlur={() => handleBlur(setEditTheme)}
+                  />
+                ) : (
+                  <span
+                    className='country-city-or-landmark'
+                    onClick={() => handleFocus(setEditTheme)}
+                  >
+                    Outdoor, museum, food...
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -112,10 +170,7 @@ const HomePage = () => {
             pastries, served as a tranquil oasis amidst the urban chaos.
             Patrons, ranging from busy professionals to leisurely readers, found
             solace at the rustic wooden tables, where the soft hum of whispered
-            conversations mingled with the clinking of coffee cups. The
-            atmosphere inside was a blend of warmth and nostalgia, making it the
-            perfect spot for those seeking a moment of peace or a burst of
-            inspiration.
+            conversations mingled with the clinking of coffee cups.
           </div>
           <iframe
             className='youtube'
@@ -123,12 +178,11 @@ const HomePage = () => {
             height='315'
             src='https://www.youtube.com/embed/c-ptvXgUfdg?si=XbktqTfryLlrhCoa'
             title='YouTube video player'
-            frameborder='0'
+            frameBorder='0'
             allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
-            referrerpolicy='strict-origin-when-cross-origin'
-            allowfullscreen
+            referrerPolicy='strict-origin-when-cross-origin'
+            allowFullScreen
           ></iframe>
-          <div class='image-9'></div>
         </div>
       </div>
     </div>
