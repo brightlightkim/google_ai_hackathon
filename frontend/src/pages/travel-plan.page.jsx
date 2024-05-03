@@ -176,5 +176,4 @@ const TravelPlanPage = () => {
     </div>
   );
 };
-
 export default TravelPlanPage;
