@@ -16,22 +16,26 @@ export const UserContext = createContext({});
 
 export const ThemeContext = createContext({});
 
+export const TravelPlanContext = createContext({});
+
 const darkThemePreference = () =>
-  window.matchMedia("(prefers-color-scheme: dark)").matches;
+  window.matchMedia('(prefers-color-scheme: dark)').matches;
 
 const App = () => {
   const [userAuth, setUserAuth] = useState(() => {
-    const userInSession = lookInSession("user");
+    const userInSession = lookInSession('user');
     return userInSession ? JSON.parse(userInSession) : { access_token: null };
   });
 
   const [theme, setTheme] = useState(() =>
-    darkThemePreference() ? "dark" : "light"
+    darkThemePreference() ? 'dark' : 'light'
   );
 
+  const [travelPlan, setTravelPlan] = useState({});
+
   useEffect(() => {
-    let userInSession = lookInSession("user");
-    let themeInSession = lookInSession("theme");
+    let userInSession = lookInSession('user');
+    let themeInSession = lookInSession('theme');
 
     userInSession
       ? setUserAuth(JSON.parse(userInSession))
@@ -39,32 +43,34 @@ const App = () => {
 
     themeInSession
       ? setTheme(() => {
-          document.body.setAttribute("data-theme", themeInSession);
+          document.body.setAttribute('data-theme', themeInSession);
           return themeInSession;
         })
-      : document.body.setAttribute("data-theme", theme);
+      : document.body.setAttribute('data-theme', theme);
   }, []);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       <UserContext.Provider value={{ userAuth, setUserAuth }}>
-        <Routes>
-          <Route path='/' element={<Navbar />}>
-            <Route index element={<HomePage />} />
-            <Route path='/travel_plan/:id' element={<TravelPlanPage />} />
-            <Route path='/experience' element={<ExperiencePage />} />
-            <Route path='/signin' element={<UserAuthForm type='sign-in' />} />
-            <Route path='/signup' element={<UserAuthForm type='sign-up' />} />
-            <Route
-              path='/userforgotpassword'
-              element={<UserForgotPassword />}
-            />
-            <Route path='/reset-password' element={<ResetPassword />} />
-            <Route path='/weather' element={<WeatherPage />} />
-            <Route path='/map' element={<Map /> }/>
-            <Route path='*' element={<PageNotFound />} />
-          </Route>
-        </Routes>
+        <TravelPlanContext.Provider value={{ travelPlan, setTravelPlan }}>
+          <Routes>
+            <Route path='/' element={<Navbar />}>
+              <Route index element={<HomePage />} />
+              <Route path='/travel_plan' element={<TravelPlanPage />} />
+              <Route path='/experience' element={<ExperiencePage />} />
+              <Route path='/signin' element={<UserAuthForm type='sign-in' />} />
+              <Route path='/signup' element={<UserAuthForm type='sign-up' />} />
+              <Route
+                path='/userforgotpassword'
+                element={<UserForgotPassword />}
+              />
+              <Route path='/reset-password' element={<ResetPassword />} />
+              <Route path='/weather' element={<WeatherPage />} />
+              <Route path='/map' element={<Map />} />
+              <Route path='*' element={<PageNotFound />} />
+            </Route>
+          </Routes>
+        </TravelPlanContext.Provider>
       </UserContext.Provider>
     </ThemeContext.Provider>
   );
