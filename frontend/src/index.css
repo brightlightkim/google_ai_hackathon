@@ -880,3 +880,17 @@ button:active {
   /* padding: 28px 0 225px 0; */
   box-sizing: border-box;
 }
+
+.goa, .paris, .guam, .korea {
+  position: relative;
+}
+
+.weather-widget {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.3); /* 배경을 약간 투명하게 설정하여 이미지가 보이도록 함 */
+  padding: 10px; /* 적절한 패딩으로 텍스트 간격 조정 */
+  border-radius: 8px; /* 모서리를 둥글게 처리 */
+  width: auto; /* 또는 필요에 따라 고정 너비 설정 */
+}
