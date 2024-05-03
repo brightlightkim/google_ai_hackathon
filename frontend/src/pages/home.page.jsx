@@ -14,13 +14,6 @@ const HomePage = () => {
   const { travelPlan, setTravelPlan } = useContext(TravelPlanContext);
   const travelRef = useRef();
   // State to manage display of input fields
-  const [editWhere, setEditWhere] = useState(false);
-  const [editWhen, setEditWhen] = useState(false);
-  const [editTheme, setEditTheme] = useState(false);
-
-  const [where, setWhere] = useState('');
-  const [when, setWhen] = useState('');
-  const [theme, setTheme] = useState('');
 
   // Handlers for focus and blur events
   const handleFocus = (setter) => {
@@ -150,7 +143,7 @@ const HomePage = () => {
           <div className='goa'>
             <img src={gao} className='rounded-t-lg mb-2' />
             <div className='weather-widget'>
-              {/* <WeatherWidget city='Goa' /> */}
+              <WeatherWidget city='Goa' />
             </div>
             <div className='day-adventure-in-goa'>5-Day Adventure in Goa</div>
             <div className='may-29-jun-2'>May 29 - Jun 2</div>
@@ -161,7 +154,7 @@ const HomePage = () => {
           <div className='paris'>
             <img src={paris} className='rounded-t-lg mb-2' />
             <div className='weather-widget'>
-              {/* <WeatherWidget city='Paris' /> */}
+              <WeatherWidget city='Paris' />
             </div>
             <div className='day-adventure-in-paris'>
               5-Day Adventure in Paris
@@ -174,7 +167,7 @@ const HomePage = () => {
           <div className='guam'>
             <img src={guam} className='rounded-t-lg mb-2' />
             <div className='weather-widget'>
-              {/* <WeatherWidget city='Guam' /> */}
+              <WeatherWidget city='Guam' />
             </div>
             <div className='day-adventure-in-guam'>5-Day Adventure in Guam</div>
             <div className='may-29-jun-22'>May 29 - Jun 2</div>
@@ -185,7 +178,7 @@ const HomePage = () => {
           <div className='korea'>
             <img src={korea} className='rounded-t-lg mb-2' />
             <div className='weather-widget'>
-              {/* <WeatherWidget city='Seoul' /> */}
+              <WeatherWidget city='Seoul' />
             </div>
             <div className='day-adventure-in-korea'>
               5-Day Adventure in Seoul
