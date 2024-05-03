@@ -2,6 +2,7 @@
 
 import google.generativeai as genai
 import json
+import sys
 
 GOOGLE_API_KEY = 'AIzaSyAS8q0pLXpfxphdQ-uj9IwyULKhlEHkDFQ'
 
@@ -339,6 +340,13 @@ userPreference3 = ["Los Angeles", "Salt Lake, Utah", "3 friends, 22 years old", 
 
 travelTo, travelFrom, travelWith, fromDate, toDate, specificActivity = userPreference2
 
+travelTo = sys.argv[1] if len(sys.argv) > 1 else travelTo
+travelFrom = sys.argv[2] if len(sys.argv) > 2 else travelFrom
+travelWith = sys.argv[3] if len(sys.argv) > 3 else travelWith
+fromDate = sys.argv[4] if len(sys.argv) > 4 else fromDate
+toDate = sys.argv[5] if len(sys.argv) > 5 else toDate
+specificActivity = sys.argv[6] if len(sys.argv) > 6 else specificActivity
+
 prompt = f"User wants to build a travel plan. You are helping the user with provided information. Follow the example prompt for your response. Example prompt: {example_prompt} Important: if the travel plan is more than 3 days, you have to add additional days according to the travel dates. Use the following information - Destination: {travelTo}, Departure place: {travelFrom}, User traveling with: {travelWith}, From {fromDate} to {toDate}, User wants to do: {specificActivity}. Important: Only return a single piece of valid JSON text. Use the same structure of day 1, day 2, and day 3 for additional days. You must include all of the days planned. Your response is going to be used in json.loads(), so check if your response has a proper format to be used in json.loads(). Check if the comma is used in the right place. Always use double quotes in your response. Time Zone should be in the IANA format, and Date should be in YYYY.M.D. For example, it should be 2024.8.24 for August 24, 2024. There are Three big sections: (1) Travel Summary, (2) Daily Planner, and (3) Estimated Budget. Your response should include all of the days planned. For example, if the user is going to travel from July 6 to July 9, you have to provide plans for all of Day 1, Day 2, Day 3, and Day 4. Your response causes an error like \"Expecting ',' delimiter: line 35 column 46 (char 1042)\". Do your best to avoid this error"
 
 counter = 0
@@ -366,7 +374,7 @@ while True:
     except Exception as e:
         print("An error occurred:", e)
         if counter != 5:
-            print("Restarting the program...")
+            print("Restarting the program…")
             counter += 1
         elif counter == 5:
             print("exceeded 5 times")
