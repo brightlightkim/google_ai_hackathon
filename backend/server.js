@@ -1360,12 +1360,15 @@ server.post('/build-travel-plan', async (req, res) => {
 
   const command = `python mj_gemini_python.py "${travelTo}" "${travelFrom}" "${travelWith}" "${fromDate}" "${toDate}" "${specificActivity}"`;
 
-  exec(command, (err, stdout, stderr) => {
+  const child = exec(command, (err, stdout, stderr) => {
     if (err) {
       console.error(err);
       return res.status(500).send(err);
     }
-    const isFileSaved = () => stdout.includes('File has been saved.');
+  });
+
+  child.on('exit', (code) => {
+    const isFileSaved = () => child.stdout.includes('File has been saved.');
 
     // Check if stdout contains the desired message
     if (isFileSaved()) {
