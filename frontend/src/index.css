@@ -61,7 +61,7 @@
     line-height: 50px;
   }
 
-  input {
+  /* input {
     position: absolute;
     width: 430px;
     outline: none;
@@ -72,7 +72,7 @@
     background: transparent;
     transition: 0.1s ease;
     z-index: 1111;
-  }
+  } */
 
   .where {
     position: absolute;
@@ -82,20 +82,6 @@
     margin: 0 10px;
     background-color: #252525;
     transition: 0.2 ease;
-  }
-  input:focus,
-  input:valid {
-    color: #f0ffff;
-    border: 4px solid #f0ffff;
-  }
-  input:focus + .where,
-  input:valid + .where {
-    color: #f0ffff;
-    height: 30px;
-    line-height: 30px;
-    padding: 0 2px;
-    transform: translate(-15px, -16px) scale(0.88);
-    z-index: 1111;
   }
 
   section {
@@ -236,15 +222,19 @@ button:active {
   @apply text-lg font-semibold p-2;
 }
 
-/* .card button {
-  @apply w-full text-white py-2 rounded-b-lg;
+.input-editable {
+  /* border: #262626; */
+  /* padding: 2px;
+  border-radius: 4px; */
+  border: 0px;
+  border-color: transparent;
+  background-color: transparent;
+  width: 100%; /* 기본 너비 설정 */
+  height: 30px;
 }
-
-.cdx-settings-button[data-tune="withBorder"],
-.cdx-settings-button[data-tune="withBackground"],
-.cdx-settings-button[data-tune="stretched"] {
-  display: none;
-} */
+.input-editable:focus {
+  border-color: transparent;
+}
 
 .home .name {
   margin-right: 9px;
@@ -316,7 +306,7 @@ button:active {
   color: #5c5c5c;
 }
 .home .container-8 {
-  margin: 16px 0 20px 0;
+  margin: 8px 0 20px 0;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -404,10 +394,11 @@ button:active {
   background: linear-gradient(180deg, #f4f4f4, #6e6e6e);
   border-radius: 40px 0px 0px 40px;
 }
-.search-input-box-l{
+.search-input-box-l {
   background: #262626;
   border-radius: 40px 0px 0px 40px;
   width: 19rem;
+  height: 90px;
   padding: 0px 20px;
   margin: 2px;
   display: flex;
@@ -416,8 +407,9 @@ button:active {
 .radius-gradient-contatiner-c {
   background: linear-gradient(180deg, #f4f4f4, #6e6e6e);
 }
-.search-input-box-c{
-  width: 150px;
+.search-input-box-c {
+  width: 200px;
+  height: 90px;
   background: #262626;
   padding: 0px 20px;
   margin: 2px;
@@ -428,9 +420,10 @@ button:active {
   background: linear-gradient(180deg, #f4f4f4, #6e6e6e);
   border-radius: 0px 40px 40px 0px;
 }
-.search-input-box-r{
+.search-input-box-r {
   background: #262626;
   width: 19rem;
+  height: 90px;
   border-radius: 0px 40px 40px 0px;
   padding: 0px 20px;
   margin: 2px;
@@ -441,16 +434,17 @@ button:active {
   display: inline-flex;
   border: double 2px transparent;
   border-radius: 30px 0px 0px 30px;
-  background-image: linear-gradient(#262626, #262626), radial-gradient(circle at center top, #6e6e6e 0%, #f4f4f4 100%);
+  background-image: linear-gradient(#262626, #262626),
+    radial-gradient(circle at center top, #6e6e6e 0%, #f4f4f4 100%);
   background-origin: border-box;
   background-clip: content-box, border-box;
-  
+
   position: absolute;
   left: 0px;
   bottom: 0px;
   width: 270px;
   height: 72px;
-/*   
+  /*   
   border-collapse: separate; 
   perspective: 1px;
   border-image: linear-gradient(180deg, #f4f4f4, #6e6e6e);
@@ -831,52 +825,79 @@ button:active {
   width: fit-content;
   box-sizing: border-box;
 }
-.home .how-to-travel-with-ai {
-  margin-bottom: 11px;
-  display: inline-block;
-  align-self: flex-start;
-  overflow-wrap: break-word;
-  font-family: "Inter";
-  font-weight: 600;
-  font-size: 40px;
-  color: #313131;
-}
-.home .this-is-about-the-app {
-  margin: 0 11px 234px 0;
-  display: inline-block;
-  width: 454px;
-  overflow-wrap: break-word;
-  font-family: "Inter";
-  font-weight: 500;
-  font-size: 18px;
-  color: #000000;
-}
+
 .home .image-9 {
   background: url("../assets/images/image_9.png") 50% / cover no-repeat;
   width: 451px;
   height: 256px;
 }
-.home .container-11 {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 916px;
-  box-sizing: border-box;
-}
-.home .about {
-  margin-left: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: fit-content;
-  box-sizing: border-box;
-}
+
 .home {
   background: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* padding: 28px 0 225px 0; */
   box-sizing: border-box;
+}
+
+.home .about {
+  margin-left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.home .how-to-travel-with-ai {
+  margin-bottom: 50px;
+  display: block;
+  width: 100%;
+  font-family: "Inter";
+  font-weight: 600;
+  font-size: 40px;
+  color: #313131;
+  text-align: center;
+}
+
+.home .container-11 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  box-sizing: border-box;
+}
+
+.goa, .paris, .guam, .korea {
+  position: relative;
+}
+
+.weather-widget {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.3); /* 배경을 약간 투명하게 설정하여 이미지가 보이도록 함 */
+  padding: 10px; /* 적절한 패딩으로 텍스트 간격 조정 */
+  border-radius: 8px; /* 모서리를 둥글게 처리 */
+  width: auto; /* 또는 필요에 따라 고정 너비 설정 */
+}
+
+.home .this-is-about-the-app {
+  margin: 0 20px 0 0;
+  flex: 1;
+  font-family: "Inter";
+  font-weight: 500;
+  font-size: 20px;
+  color: #000000;
+}
+
+.youtube {
+  flex: 1;
+  max-width: 800px;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  padding-left: 30px; /* 왼쪽 패딩 추가 */
+  margin-right: 0;
 }
