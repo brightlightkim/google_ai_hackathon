@@ -1295,11 +1295,7 @@ server.get('/getLocationReviews', async (req, res) => {
   }
 });
 server.get('/getLocationPhotos', async (req, res) => {
-<<<<<<< HEAD
   let { prompt } = req.query;
-=======
-  let { prompt } = req.body;
->>>>>>> origin/main
   try {
     const locationPhotoes = await getLocationPhotos(prompt);
     if (locationPhotoes) {
