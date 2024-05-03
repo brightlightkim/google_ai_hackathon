@@ -38,12 +38,15 @@ const FlightOptions = () => {
         </div>
       ))}
       <div className='flex justify-between'>
-        <div className="flex items-center gap-2">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/1/14/Skyscanner_Icon_2020.svg" className="w-8" />
-          <p className="text-gray-500">Powered by Skyscanner</p>
+        <div className='flex items-center gap-2'>
+          <img
+            src='https://upload.wikimedia.org/wikipedia/commons/1/14/Skyscanner_Icon_2020.svg'
+            className='w-8'
+          />
+          <p className='text-gray-500'>Powered by Skyscanner</p>
         </div>
-        <h1 className="flex items-center gap-2"> 
-          from<b className="text-lg">$450</b>
+        <h1 className='flex items-center gap-2'>
+          from<b className='text-lg'>$450</b>
         </h1>
       </div>
       <button className='border-2 w-full rounded-lg py-2 text-md mt-4 font-bold hover:bg-gray-200 hover:text-gray-500'>

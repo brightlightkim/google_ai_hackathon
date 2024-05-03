@@ -5,7 +5,10 @@ import React, { useState } from 'react';
 import gemini_data from '../../../backend/gemini_response.json';
 
 const ExperiencePage = () => {
-  const travel_period = gemini_data["Travel Summary"]['travel_dates']['date_from'] + ' - ' + gemini_data["Travel Summary"]['travel_dates']['date_to'];
+  const travel_period =
+    gemini_data['Travel Summary']['travel_dates']['date_from'] +
+    ' - ' +
+    gemini_data['Travel Summary']['travel_dates']['date_to'];
   const area = 'Seoul';
   const country = 'South Korea';
   const location = 'Theme Parks, Outdoor Activities, Entertainment';
@@ -59,9 +62,18 @@ const ExperiencePage = () => {
       </span>
 
       <div className='grid grid-flow-col grid-flow-row  grid-cols-2 grid-rows-5 pt-2 gap-2 rounded-lg h-[32rem]'>
-        <img src={paris} className='col-span-1 row-span-5 ' />
-        <img src={korea} className='row-span-3 col-span-2' />
-        <img src={gao} className='col-span-2 row-span-2' />
+        <img
+          src='https://t4.ftcdn.net/jpg/03/58/32/29/360_F_358322998_eWHzJmEnujVtb41bolba1Iz3tfIuCGYh.jpg'
+          className='col-span-1 row-span-5 '
+        />
+        <img
+          src='https://media.cntraveler.com/photos/63e404a09e9cb374b710214b/16:9/w_2560%2Cc_limit/GettyImages-902452584%2520(1).jpg'
+          className='row-span-3 col-span-2'
+        />
+        <img
+          src='https://plus.unsplash.com/premium_photo-1661948404806-391a240d6d40?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8a29yZWF8ZW58MHx8MHx8fDA%3D'
+          className='col-span-2 row-span-2'
+        />
       </div>
 
       <div className='flex justify-between'>
