@@ -28,7 +28,7 @@ import axios from 'axios';
 import {
   getLocationDetails,
   getLocationReviews,
-  getLocationPhotoes,
+  getLocationPhotos,
 } from './api/tripadvisorApi.js';
 import { exec } from 'child_process';
 
@@ -1267,7 +1267,7 @@ server.get('/weather', async (req, res) => {
 });
 
 server.get('/getLocationReviews', async (req, res) => {
-  let { prompt } = req.body;
+  let { prompt } = req.query;
   try {
     const locationReviews = await getLocationReviews(prompt);
     if (locationReviews) {
@@ -1280,10 +1280,10 @@ server.get('/getLocationReviews', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-server.get('/getLocationPhotoes', async (req, res) => {
-  let { prompt } = req.body;
+server.get('/getLocationPhotos', async (req, res) => {
+  let { prompt } = req.query;
   try {
-    const locationPhotoes = await getLocationPhotoes(prompt);
+    const locationPhotoes = await getLocationPhotos(prompt);
     if (locationPhotoes) {
       res.json({ message: 'API is working', locationPhotoes: locationPhotoes });
     } else {
@@ -1342,11 +1342,11 @@ server.get('/place-photos', async (req, res) => {
       },
     };
 
-    const placeId = req.body.placeId;
+    const placeId = req.query.placeId;
 
     const url = `https://places.googleapis.com/v1/places/${placeId}`;
 
-    const response = await axios.get(url, config);
+    const response = await axios.post(url, config);
 
     res.json(response.data);
   } catch (error) {
@@ -1392,7 +1392,7 @@ server.get('/place-id', async (req, res) => {
   }
 
   try {
-    const locationName = req.body.locationName;
+    const locationName = req.query.locationName;
     // get the placeId from geocoding API
     const geoUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${locationName}&key=${process.env.GOOGLE_MAPS_API_KEY}`;
     const geoResponse = await axios.get(geoUrl);

@@ -31,11 +31,11 @@ export async function getLocationDetails(prompt) {
     return null;
   }
 }
-export async function getLocationPhotoes(prompt) {
+export async function getLocationPhotos(prompt) {
   try{
     const location_id = await getLocationId(prompt);
     console.log(location_id);
-    const url = `https://api.content.tripadvisor.com/api/v1/location/${location_id}/photos?key=${apikey}&limit=3`;
+    const url = `https://api.content.tripadvisor.com/api/v1/location/${location_id}/photos?key=${process.env.TRIPADVISOR_ACCESS_KEY}&limit=3`;
     const response = await axios.get(url);
     // console.log(response);
     const data = response.data;
