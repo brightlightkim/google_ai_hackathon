@@ -18,36 +18,6 @@ const ExperiencePage = () => {
   
   Whether exploring the vibrant nightlife of International Drive, discovering the rich cultural heritage of Winter Park, or indulging in outdoor adventures amidst the natural beauty of the surrounding region, Orlando offers something for every traveler's taste and preference. With its warm climate, diverse offerings, and boundless entertainment options, Orlando stands as a premier destination for unforgettable experiences and cherished memories.`
 
-  const extimated_budget = {
-    Range: '$2,500 - $3,500',
-    'Food price': 'Estimated $500 - $700',
-    Transportation:
-      'Estimated $300 - $500 (including local travel within Honolulu)',
-    Accommodation:
-      'Estimated $800 - $1,200 (depending on hotel choice and length of stay)',
-    Flight: 'Estimated $600 - $800 (from Provo to Honolulu)',
-    Activities: 'Estimated $200 - $300',
-    Total: 'Varies depending on specific choices and spending habits',
-  };
-
-  const ImageGrid = ({ images }) => {
-    return (
-      <div className="grid grid-cols-3 gap-4">
-        {images.map((image, index) => (
-          <div key={index} className="relative w-full aspect-ratio-1/1">
-            <img src={image} alt={`image-${index}`} className="absolute inset-0 w-full h-full object-cover" />
-          </div>
-        ))}
-      </div>
-    );
-  };
-
-  const images = {
-    korea, 
-    paris,
-    gao
-  }
-
   const maxLength = 500; 
   const [expanded, setExpanded] = useState(false); // 상태 변수를 생성합니다.
 
