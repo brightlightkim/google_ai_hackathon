@@ -71,11 +71,19 @@
 #     "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
 # }
 
-GET http://localhost:3000/searchHotels
+GET http://localhost:3000/getRoundTrip
 Content-Type: application/json
 
 {
-    "prompt": "london eye",
-    "arrival": "2024-05-02",
-    "departure": "2024-05-05"
+    "fromCity": "London",
+    "toCity": "Incheon",
+    "departDate": "2024-05-05",
+    "returnDate": "2024-05-09"
 }
+
+# GET http://localhost:3000/getEntityId
+# Content-Type: application/json
+
+# {
+#     "prompt": "london eye"
+# }

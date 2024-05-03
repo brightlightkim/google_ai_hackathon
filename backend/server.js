@@ -24,6 +24,7 @@ import getWeather from './api/real_time_weather.js';
 import axios from 'axios';
 import {getLocationDetails, getLocationReviews, getLocationPhotos} from './api/tripadvisorApi.js'
 import { getDestid, getHotels } from './api/booking.comApi.js';
+import { getEntityId, getOneWayTrip, getRoundTrip } from './api/skyscannerApi.js';
 
 const server = express();
 let PORT = 3000;
@@ -1239,7 +1240,7 @@ server.get('/weather', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
+//tripadviosrapi
 server.get('/getLocationDetails', async (req, res) => {
   let { prompt } = req.body;
   try {
@@ -1283,6 +1284,8 @@ server.get('/getLocationPhotos', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+// booking.com api
 server.get('/searchDestination', async (req, res) => {
   let { prompt } = req.body;
   try {
@@ -1373,7 +1376,54 @@ server.get('/place-photos', async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-})
+});
+
+//sky scanner api
+server.get('/getEntityId', async (req, res) => {
+  let { prompt } = req.body;
+  try {
+    const searchResults = await getEntityId(prompt);
+    if (searchResults) {
+      res.json({ message: 'API is working', searchResults: searchResults});
+    } else {
+      res.status(500).json({ error: 'Failed to get Destination' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+server.get('/getRoundTrip', async (req, res) => {
+  let { fromCity, toCity, departDate, returnDate } = req.body;
+  try {
+    const searchResults = await getRoundTrip(fromCity, toCity, departDate, returnDate);
+    // console.log(searchResults);
+    if (searchResults) {
+      res.json({ message: 'API is working', searchResults: searchResults});
+    } else {
+      res.status(500).json({ error: 'Failed to get Destination' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+server.get('/getOneWayTrip', async (req, res) => {
+  let { fromCity, toCity, departDate } = req.body;
+  try {
+    const searchResults = await getOneWayTrip(fromCity, toCity, departDate);
+    // console.log(searchResults);
+    if (searchResults) {
+      res.json({ message: 'API is working', searchResults: searchResults});
+    } else {
+      res.status(500).json({ error: 'Failed to get Destination' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 server.listen(PORT, () => {
   console.log('listening on port -> ' + PORT);
