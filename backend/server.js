@@ -23,6 +23,7 @@ import {
   HarmCategory,
   HarmBlockThreshold,
 } from '@google/generative-ai';
+import { getHashtagSearch } from './api/Instagram_search.js';
 import getWeather from './api/real_time_weather.js';
 import axios from 'axios';
 import {
@@ -1383,6 +1384,24 @@ server.post('/build-travel-plan', async (req, res) => {
     }
   });
 });
+
+
+server.get('/hashtag-search', async (req, res) => {
+  let { prompt } = req.body;
+  try {
+    const hashtagphotos = await getHashtagSearch(prompt);
+    console.log(hashtagphotos)
+    if (hashtagphotos) {
+      res.json({ message: 'API is working', hashtagphotos: hashtagphotos});
+    } else {
+      res.status(500).json({ error: 'Failed to get prompt' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 server.listen(PORT, () => {
   console.log('listening on port -> ' + PORT);
