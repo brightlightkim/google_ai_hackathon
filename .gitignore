@@ -135,3 +135,5 @@ frontend/src/common/firebase.jsx
 frontend/.vite
 
 backend/.Rhistory
+
+.DS_Store
