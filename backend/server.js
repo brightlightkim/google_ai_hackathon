@@ -1183,7 +1183,7 @@ server.post("/check-verification-token", async (req, res) => {
 });
 
 // YouTube API
-server.post("/provide-videos", async (req, res) => {
+server.get("/provide-videos", async (req, res) => {
   try {
     const { location, date, theme } = req.body;
 

@@ -52,8 +52,7 @@
 #     "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
 # }
 
-POST http://localhost:3000/place-reviews
->>>>>>> main
+# POST http://localhost:3000/place-reviews
 # POST http://localhost:3000/build-travel-plan
 # Content-Type: application/json
 
@@ -66,11 +65,13 @@ POST http://localhost:3000/place-reviews
 #     "specificActivity": "school tour, museum, hiking, shopping, eating, etc."
 # }
 
-GET http://localhost:3000/getLocationReviews
+GET http://localhost:3000/provide-videos
 Content-Type: application/json
 
 {
-    "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
+    "location": "Seoul, Korea", 
+    "date": "May 10, 2024", 
+    "theme": "Korean Food"
 }
 
 # GET http://localhost:3000/place-photos
@@ -78,5 +79,4 @@ Content-Type: application/json
 
 # {
 #     "placeId": "ChIJs5ydyTiuEmsR0fRSlU0C7k0"
->>>>>>> main
 # }

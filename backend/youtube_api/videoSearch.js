@@ -18,22 +18,10 @@ export async function searchVideosByCriteria(
     if (location) {
       query += `${location}`;
     }
-
-    // if (date) {
-    //   query += ` ${date}`;
-    // }
-
     if (theme) {
       query += ` ${theme}`;
     }
     const videoLinks = await searchVideos(query, maxResults);
-
-    // const uniqueVideos = Array.from(
-    //   new Set(videos.map((video) => video.id.videoId))
-    // );
-    // const selectedVideos = uniqueVideos
-    //   .slice(0, 3)
-    //   .map((videoId) => videos.find((video) => video.id.videoId === videoId));
 
     return videoLinks;
   } catch (error) {
