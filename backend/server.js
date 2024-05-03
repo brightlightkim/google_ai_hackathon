@@ -8,8 +8,11 @@ import cors from 'cors';
 import admin from 'firebase-admin';
 import serviceAccountKey from './aihackathon-bb85a-firebase-adminsdk-zyl5x-2ecf43634a.json' assert { type: 'json' };
 import { getAuth } from 'firebase-admin/auth';
+// added for youtube api
+import { searchVideosByCriteria } from './youtube_api/videoSearch.js';
 // schema before
 import User from './Schema/User.js';
+
 import Blog from './Schema/Blog.js';
 import aws from 'aws-sdk';
 import Notification from './Schema/Notification.js';
@@ -20,8 +23,14 @@ import {
   HarmCategory,
   HarmBlockThreshold,
 } from '@google/generative-ai';
+import getWeather from './api/real_time_weather.js';
 import axios from 'axios';
-import {getLocationDetails, getLocationReviews, getLocationPhotoes} from './api/tripadvisorApi.js'
+import {
+  getLocationDetails,
+  getLocationReviews,
+  getLocationPhotoes,
+} from './api/tripadvisorApi.js';
+import { exec } from 'child_process';
 
 const server = express();
 let PORT = 3000;
@@ -1159,6 +1168,7 @@ server.post('/add-verification-token', (req, res) => {
     });
 });
 
+//server.post("/check-verification-token", (req, res) => {
 server.post('/check-verification-token', async (req, res) => {
   let { verificationToken } = req.body;
 
@@ -1175,6 +1185,22 @@ server.post('/check-verification-token', async (req, res) => {
     .catch((err) => {
       return res.status(500).json({ error: err.message });
     });
+});
+
+// YouTube API
+server.get('/provide-videos', async (req, res) => {
+  try {
+    const { location, date, theme } = req.body;
+
+    // Call the searchVideosByCriteria function to search for videos
+    const videoLinks = await searchVideosByCriteria(location, date, theme);
+
+    // Send the most relevant videos as a response
+    res.status(200).json({ videoLinks });
+  } catch (error) {
+    console.error('Error providing videos:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 server.post('/build-travel-plan', async (req, res) => {
@@ -1224,30 +1250,28 @@ server.post('/build-travel-plan', async (req, res) => {
 
   const result = await chat.sendMessage(query);
   // return res.status(200).json(JSON.parse(result));
-  return res.status(200).json(result.response.candidates[0].content.parts[0].text);
+  return res
+    .status(200)
+    .json(result.response.candidates[0].content.parts[0].text);
 });
 
-
-server.get('/getLocationDetails', async (req, res) => {
-  let { prompt } = req.body;
+server.get('/weather', async (req, res) => {
+  const { location } = req.query;
   try {
-    const locationDetails = await getLocationDetails(prompt);
-    if (locationDetails) {
-      res.json({ message: 'API is working', locationDetails: locationDetails});
-    } else {
-      res.status(500).json({ error: 'Failed to get location ID' });
-    }
+    const weatherData = await getWeather(location);
+    return res.json(weatherData);
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 server.get('/getLocationReviews', async (req, res) => {
   let { prompt } = req.body;
   try {
     const locationReviews = await getLocationReviews(prompt);
     if (locationReviews) {
-      res.json({ message: 'API is working', locationReviews: locationReviews});
+      res.json({ message: 'API is working', locationReviews: locationReviews });
     } else {
       res.status(500).json({ error: 'Failed to get location ID' });
     }
@@ -1261,7 +1285,7 @@ server.get('/getLocationPhotoes', async (req, res) => {
   try {
     const locationPhotoes = await getLocationPhotoes(prompt);
     if (locationPhotoes) {
-      res.json({ message: 'API is working', locationPhotoes: locationPhotoes});
+      res.json({ message: 'API is working', locationPhotoes: locationPhotoes });
     } else {
       res.status(500).json({ error: 'Failed to get location ID' });
     }
@@ -1273,10 +1297,10 @@ server.get('/getLocationPhotoes', async (req, res) => {
 
 server.post('/place-reviews', async (req, res) => {
   const headers = {
-    "Content-Type": "application/json",
-    "X-Goog-Api-Key": process.env.GOOGLE_MAPS_API_KEY,
-    "X-Goog-FieldMask": "places.id,places.rating,places.reviews"
-  }
+    'Content-Type': 'application/json',
+    'X-Goog-Api-Key': process.env.GOOGLE_MAPS_API_KEY,
+    'X-Goog-FieldMask': 'places.id,places.rating,places.reviews',
+  };
   const query = req.body.textQuery;
   const searchUrl = 'https://places.googleapis.com/v1/places:searchText';
 
@@ -1287,21 +1311,16 @@ server.post('/place-reviews', async (req, res) => {
   try {
     // invoke the Google Places Text Search API
     const requestData = {
-      "textQuery": query
-    }
+      textQuery: query,
+    };
 
     const config = {
       headers: {
-        ...headers
-      }
-    }
+        ...headers,
+      },
+    };
 
-    console.log("Config: ", config);
-    console.log("Request Data: ", requestData);
-    console.log("Search URL: ", searchUrl);
     const response = await axios.post(searchUrl, requestData, config);
-
-    console.log("Response: ", response);
     // Return the response from the Google Places API
     res.json(response.data);
   } catch (error) {
@@ -1311,29 +1330,59 @@ server.post('/place-reviews', async (req, res) => {
 
 server.get('/place-photos', async (req, res) => {
   const headers = {
-    "Content-Type": "application/json",
-    "X-Goog-Api-Key": process.env.GOOGLE_MAPS_API_KEY,
-    "X-Goog-FieldMask": "photos"
-  }
+    'Content-Type': 'application/json',
+    'X-Goog-Api-Key': process.env.GOOGLE_MAPS_API_KEY,
+    'X-Goog-FieldMask': 'photos',
+  };
 
   try {
     const config = {
       headers: {
-        ...headers
-      }
-    }
-    
-    const placeId = req.body.placeId
-    
+        ...headers,
+      },
+    };
+
+    const placeId = req.body.placeId;
+
     const url = `https://places.googleapis.com/v1/places/${placeId}`;
-    
+
     const response = await axios.get(url, config);
-    
+
     res.json(response.data);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-})
+});
+
+server.post('/build-travel-plan', async (req, res) => {
+  let { travelTo, travelFrom, travelWith, fromDate, toDate, specificActivity } =
+    req.body;
+
+  const command = `python mj_gemini_python.py "${travelTo}" "${travelFrom}" "${travelWith}" "${fromDate}" "${toDate}" "${specificActivity}"`;
+
+  exec(command, (err, stdout, stderr) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send(err);
+    }
+    const isFileSaved = () => stdout.includes('File has been saved.');
+
+    // Check if stdout contains the desired message
+    if (isFileSaved()) {
+      res.status(200).json({ message: 'Travel plan generated successfully' });
+    } else {
+      // If not, wait for a short duration and check again
+      const interval = setInterval(() => {
+        if (isFileSaved()) {
+          clearInterval(interval);
+          res
+            .status(200)
+            .json({ message: 'Travel plan generated successfully' });
+        }
+      }, 10000); // Check every 10 seconds
+    }
+  });
+});
 
 server.get('/place-id', async (req, res) => {
   const headers = {

@@ -31,7 +31,7 @@
 #     "newPassword": "Ehlswkd66!!"
 # }
 
-# POST http://localhost:3000/build-travel-plan
+# # POST http://localhost:3000/build-travel-plan
 # Content-Type: application/json
 
 # {
@@ -66,9 +66,21 @@
 #     "placeId": "ChIJs5ydyTiuEmsR0fRSlU0C7k0"
 # }
 
-GET http://localhost:3000/place-id
+# GET http://localhost:3000/place-id
+# Content-Type: application/json
+
+# {
+#     "locationName": "Eiffel Tower"
+# }
+
+POST http://localhost:3000/build-travel-plan
 Content-Type: application/json
 
 {
-    "locationName": "Eiffel Tower"
+    "travelTo": "Provo, UT", 
+    "travelFrom": "South Korea", 
+    "travelWith": "Car", 
+    "fromDate": "May 6", 
+    "toDate": "May 9", 
+    "specificActivity": "school tour, museum, hiking, shopping, eating, etc."
 }
