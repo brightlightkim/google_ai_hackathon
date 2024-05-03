@@ -46,7 +46,7 @@ const WeatherWidget = ({ city }) => {
           </ul>
         </div>
       ) : (
-        <p>Loading weather data...</p>
+        ''
       )}
     </div>
   );
