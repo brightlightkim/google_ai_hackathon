@@ -137,3 +137,5 @@ frontend/.vite
 backend/.Rhistory
 
 .DS_Store
+
+backend/gemini_response.json
