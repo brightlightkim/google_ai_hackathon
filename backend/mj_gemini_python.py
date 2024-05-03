@@ -3,8 +3,10 @@
 import google.generativeai as genai
 import json
 import sys
+import requests
 
 GOOGLE_API_KEY = 'AIzaSyAS8q0pLXpfxphdQ-uj9IwyULKhlEHkDFQ'
+
 
 genai.configure(api_key=GOOGLE_API_KEY)
 
@@ -363,7 +365,10 @@ while True:
         cleaned = response.text.lstrip("```json").rstrip("```").replace("'", '"')
 
         json_version = json.loads(cleaned)
-
+        url = 'http://localhost:3000/save-data-supabase'
+        
+        response = requests.post(url, json={'prompt': json_version})
+        
         file_path = 'gemini_response.json'
 
         with open(file_path, 'w') as file:
@@ -379,3 +384,6 @@ while True:
         elif counter == 5:
             print("exceeded 5 times")
             break
+
+   
+  

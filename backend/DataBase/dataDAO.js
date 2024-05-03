@@ -1,11 +1,11 @@
 import sql from './db.js';
 
-async function savePlan(id, plan) {
+async function savePlan(plan) {
     try{
       console.log(plan);
       const existingPlan = await sql`
-          INSERT INTO travelplan (id, plan)
-          VALUES (${id}, ${plan})
+          INSERT INTO travelplan (plan)
+          VALUES (${plan})
         `;
       
     }catch (error){

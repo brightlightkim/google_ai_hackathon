@@ -1381,9 +1381,9 @@ server.get('/getLocationPhotoes', async (req, res) => {
 });
 
 server.post('/save-data-supabase', async(req, res) =>{
-  let {id, prompt} = req.body;
+  let {prompt} = req.body;
   try{
-    const success = await functions.savePlan(id, prompt);
+    const success = await functions.savePlan(prompt);
     if (success){
       res.json({ message: 'It is successfully saving the prompt'});
     }else{
@@ -1412,8 +1412,6 @@ server.get('/get-data-supabase', async (req, res) => {
     console.error('Error:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
-
-  
 });
 
 server.post('/place-reviews', async (req, res) => {

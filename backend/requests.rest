@@ -52,24 +52,23 @@
 #     "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
 # }
 
-//POST http://localhost:3000/place-reviews
-# POST http://localhost:3000/build-travel-plan
-# Content-Type: application/json
 
-# {
-#     "id":3,
-#     "prompt": {
-#         "city": "cc",
-#         "day1": "kk"
-#     }
-# }
-
-GET http://localhost:3000/getLocationReviews
+POST http://localhost:3000/save-data-supabase
 Content-Type: application/json
 
 {
-    "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
+    "prompt": {
+        "city": "cc",
+        "day1": "kk"
+    }
 }
+
+# GET http://localhost:3000/getLocationReviews
+# Content-Type: application/json
+
+# {
+#     "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
+# }
 
 # GET http://localhost:3000/place-photos
 # Content-Type: application/json
