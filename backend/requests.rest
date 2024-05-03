@@ -19,6 +19,26 @@
 #     "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
 # }
 
+# POST http://localhost:3000/place-reviews
+# Content-Type: application/json
+
+# {
+#     "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
+# }
+
+# GET http://localhost:3000/place-photos?placeId=ChIJs5ydyTiuEmsR0fRSlU0C7k0
+# Content-Type: application/json
+
+# {
+
+# }
+
+# GET http://localhost:3000/place-id?locationName=Seoul%20Korea
+# Content-Type: application/json
+
+# {
+
+# }
 
 # POST http://localhost:3000/build-travel-plan
 # Content-Type: application/json
@@ -31,17 +51,12 @@
 #     "toDate": "May 9", 
 #     "specificActivity": "school tour, museum, hiking, shopping, eating, etc."
 # }
-# POST http://localhost:3000/place-reviews
+
+# GET http://localhost:3000/getLocationPhotos
 # Content-Type: application/json
 
 # {
-#     "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
-# }
-# POST http://localhost:3000/place-reviews
-# Content-Type: application/json
-
-# {
-#     "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
+#     "prompt": "Seoul"
 # }
 
 # GET http://localhost:3000/searchHotels
@@ -83,27 +98,27 @@
 #     "arrival": "2024-05-05",
 #     "departure": "2024-05-08
 # }
-GET http://localhost:3000/getLocationPhotos
+GET http://localhost:3000/getLocationReviews
 Content-Type: application/json
 
 {
-    "prompt": "seoul"
+    "prompt": "tokyo"
 }
 
 
-GET http://localhost:3000/searchHotels
-Content-Type: application/json
+# GET http://localhost:3000/searchHotels
+# Content-Type: application/json
 
-{
-    "prompt": "london eye",
-    "arrival": "2024-05-02",
-    "departure": "2024-05-05"
-}
+# {
+#     "prompt": "london eye",
+#     "arrival": "2024-05-02",
+#     "departure": "2024-05-05"
+# }
 
 
-GET http://localhost:3000/searchHotels
-Content-Type: application/json
+# GET http://localhost:3000/searchHotels
+# Content-Type: application/json
 
-{
-      "prompt": "seoul"
-}
+# {
+#       "prompt": "seoul"
+# }

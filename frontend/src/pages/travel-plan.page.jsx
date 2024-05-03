@@ -1,11 +1,68 @@
 import gao from '../imgs/Gao.jpg';
 import paris from '../imgs/Paris.jpg';
 import korea from '../imgs/Korea.png';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 import StayOptions from '../components/stay_options';
 import FlightOptions from '../components/flight-options';
 import ExperiencePage from './experience.page';
 
+const baseUrl = 'http://localhost:3000';
+
+async function getTripPhotos() {
+  // get place id
+  let config = {
+    params: {
+      prompt: 'Korea'
+    }
+  }
+  let response = await axios.get(`${baseUrl}/getLocationPhotos`, config);
+
+  if (!response.data.locationPhotoes.data) {
+    // throw new Error(`No photos available of ${props.prompt}`);
+    throw new Error(`No photos available of Seoul Korea`);
+  }
+
+  return response.data.locationPhotoes.data[0].images.original.url;
+}
+
+async function getLocationRating() {
+  let body = {
+    "textQuery": "Landmarks in Seoul, Korea"
+  }
+
+  const response = await axios.post(`${baseUrl}/place-reviews`, body, {})
+  let rating = 0;
+  console.log(response);
+  response.data.places.map((place) => {
+    rating += place.rating; 
+  })
+  rating = rating / response.data.places.length;
+
+  return rating.toFixed(1);
+}
+
 const TravelPlanPage = () => {
+  // states for budget
+  const [range, setRange] = useState('');
+  const [foodPrice, setFoodPrice] = useState('');
+  const [transportation, setTransportation] = useState('');
+  const [accommodation, setAccommodation] = useState('');
+  const [flight, setFlight] = useState('');
+  const [activities, setActivities] = useState('');
+  const [total, setTotal] = useState('');
+  
+  // states for itinerary
+  const [dest, setDest] = useState('');
+  const [details, setDetails] = useState([]);
+  const [rating, setRating] = useState(null);
+  const [photo, setPhoto] = useState('');
+  
+  useEffect(async () => {
+    setRating(await getLocationRating());
+    // setPhoto(await getTripPhotos());
+  }, [])
+  
   const extimated_budget = {
     Range: '$2,500 - $3,500',
     'Food price': 'Estimated $500 - $700',
@@ -42,7 +99,7 @@ const TravelPlanPage = () => {
         <div className='border-b-2 border-slate-200 w-full'></div>
       </div>
       <h1 className='text-2xl my-4 font-bold'>Itinerary</h1>
-      <img src={korea} className='rounded-lg mb-2 h-48' />
+      <img src={photo} className='rounded-lg mb-2 h-48' />
 
       {/* Day Box */}
       <div className='flex gap-2 my-5'>
@@ -63,9 +120,17 @@ const TravelPlanPage = () => {
       {/* Day Plan */}
       <div className='flex flex-col gap-2'>
         <div className='flex-col my-5 border-2 rounded-lg px-4 py-4'>
-          <h1 className='text-lg font-bold'>
-            Magical Disney and Huanted Tours
-          </h1>
+          <div className="flex flex-row justify-between items-center gap-2 my-5">
+            <h1 className='text-lg font-bold'>
+              Magical Disney and Haunted Tours 
+            </h1>
+            {rating ? (
+                <h1 className='text-lg font-bold'>Ratings: {rating}</h1>
+              ) : (
+                <h1 className='text-lg font-bold'>Loading rating...</h1>
+              )
+            }
+          </div>
           <h1 className='text-slate-500 py-2'>Seoul</h1>
           <button className='flex gap-2 border-2 rounded-lg px-2 py-1'>
             <img

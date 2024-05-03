@@ -1281,7 +1281,7 @@ server.get('/getLocationDetails', async (req, res) => {
 });
 
 server.get('/getLocationReviews', async (req, res) => {
-  let { prompt } = req.body;
+  let { prompt } = req.query;
   try {
     const locationReviews = await getLocationReviews(prompt);
     if (locationReviews) {
@@ -1295,7 +1295,7 @@ server.get('/getLocationReviews', async (req, res) => {
   }
 });
 server.get('/getLocationPhotos', async (req, res) => {
-  let { prompt } = req.body;
+  let { prompt } = req.query;
   try {
     const locationPhotoes = await getLocationPhotos(prompt);
     if (locationPhotoes) {
@@ -1390,11 +1390,11 @@ server.get('/place-photos', async (req, res) => {
       },
     };
 
-    const placeId = req.body.placeId;
+    const placeId = req.query.placeId;
 
     const url = `https://places.googleapis.com/v1/places/${placeId}`;
 
-    const response = await axios.get(url, config);
+    const response = await axios.post(url, config);
 
     res.json(response.data);
   } catch (error) {
@@ -1494,6 +1494,34 @@ server.get('/hashtag-search', async (req, res) => {
   }
 });
 
+
+server.get('/place-id', async (req, res) => {
+  const headers = {
+    "Content-Type": "application/json",
+    "X-Goog-Api-Key": process.env.GOOGLE_MAPS_API_KEY,
+    "X-Goog-FieldMask": "id"
+  }
+
+  try {
+    const locationName = req.query.locationName;
+    // get the placeId from geocoding API
+    const geoUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${locationName}&key=${process.env.GOOGLE_MAPS_API_KEY}`;
+    const geoResponse = await axios.get(geoUrl);
+    console.log(geoResponse);
+
+    // extract the placeId of the location
+    const placeId = geoResponse.data.results[0].place_id;
+    console.log(placeId);
+
+    const body = {
+      placeId
+    }
+
+    res.json(body);    
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+})
 
 server.listen(PORT, () => {
   console.log('listening on port -> ' + PORT);

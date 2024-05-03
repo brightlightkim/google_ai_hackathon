@@ -26,7 +26,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@react-google-maps/api": "^2.19.3",
-    "axios": "^1.4.0",
+    "axios": "^1.6.8",
     "emailjs": "^4.0.3",
     "firebase": "^10.7.1",
     "framer-motion": "^10.13.0",
