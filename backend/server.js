@@ -23,13 +23,12 @@ import {
   HarmCategory,
   HarmBlockThreshold,
 } from '@google/generative-ai';
+import { getHashtagSearch } from './api/Instagram_search.js';
 import getWeather from './api/real_time_weather.js';
 import axios from 'axios';
-import {
-  getLocationDetails,
-  getLocationReviews,
-  getLocationPhotos,
-} from './api/tripadvisorApi.js';
+import {getLocationDetails, getLocationReviews, getLocationPhotos} from './api/tripadvisorApi.js'
+import { getDestid, getHotels } from './api/booking.comApi.js';
+import { getEntityId, getOneWayTrip, getRoundTrip } from './api/skyscannerApi.js';
 import { exec } from 'child_process';
 
 const server = express();
@@ -1265,6 +1264,21 @@ server.get('/weather', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+//tripadviosrapi
+server.get('/getLocationDetails', async (req, res) => {
+  let { prompt } = req.body;
+  try {
+    const locationDetails = await getLocationDetails(prompt);
+    if (locationDetails) {
+      res.json({ message: 'API is working', locationDetails: locationDetails});
+    } else {
+      res.status(500).json({ error: 'Failed to get location ID' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 server.get('/getLocationReviews', async (req, res) => {
   let { prompt } = req.query;
@@ -1281,7 +1295,11 @@ server.get('/getLocationReviews', async (req, res) => {
   }
 });
 server.get('/getLocationPhotos', async (req, res) => {
+<<<<<<< HEAD
   let { prompt } = req.query;
+=======
+  let { prompt } = req.body;
+>>>>>>> origin/main
   try {
     const locationPhotoes = await getLocationPhotos(prompt);
     if (locationPhotoes) {
@@ -1294,6 +1312,40 @@ server.get('/getLocationPhotos', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+// booking.com api
+server.get('/searchDestination', async (req, res) => {
+  let { prompt } = req.body;
+  try {
+    const searchResults = await getDestid(prompt);
+    // console.log(searchResults)
+    if (searchResults) {
+      res.json({ message: 'API is working', searchResults: searchResults});
+    } else {
+      res.status(500).json({ error: 'Failed to get Destination' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+server.get('/searchHotels', async (req, res) => {
+  // need prompt(searchQuery), arrival date, and departure date
+  let { prompt, arrival, departure } = req.body;
+  try {
+    const searchResults = await getHotels(prompt,arrival,departure);
+    if (searchResults) {
+      res.json({ message: 'API is working', searchResults: searchResults});
+    } else {
+      res.status(500).json({ error: 'Failed to get Destination' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 server.post('/place-reviews', async (req, res) => {
   const headers = {
@@ -1353,7 +1405,6 @@ server.get('/place-photos', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-
 server.post('/build-travel-plan', async (req, res) => {
   let { travelTo, travelFrom, travelWith, fromDate, toDate, specificActivity } =
     req.body;
@@ -1383,6 +1434,70 @@ server.post('/build-travel-plan', async (req, res) => {
     }
   });
 });
+//sky scanner api
+server.get('/getEntityId', async (req, res) => {
+  let { prompt } = req.body;
+  try {
+    const searchResults = await getEntityId(prompt);
+    if (searchResults) {
+      res.json({ message: 'API is working', searchResults: searchResults});
+    } else {
+      res.status(500).json({ error: 'Failed to get Destination' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+server.get('/getRoundTrip', async (req, res) => {
+  let { fromCity, toCity, departDate, returnDate } = req.body;
+  try {
+    const searchResults = await getRoundTrip(fromCity, toCity, departDate, returnDate);
+    // console.log(searchResults);
+    if (searchResults) {
+      res.json({ message: 'API is working', searchResults: searchResults});
+    } else {
+      res.status(500).json({ error: 'Failed to get Destination' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+server.get('/getOneWayTrip', async (req, res) => {
+  let { fromCity, toCity, departDate } = req.body;
+  try {
+    const searchResults = await getOneWayTrip(fromCity, toCity, departDate);
+    // console.log(searchResults);
+    if (searchResults) {
+      res.json({ message: 'API is working', searchResults: searchResults});
+    } else {
+      res.status(500).json({ error: 'Failed to get Destination' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+server.get('/hashtag-search', async (req, res) => {
+  let { prompt } = req.body;
+  try {
+    const hashtagphotos = await getHashtagSearch(prompt);
+    console.log(hashtagphotos)
+    if (hashtagphotos) {
+      res.json({ message: 'API is working', hashtagphotos: hashtagphotos});
+    } else {
+      res.status(500).json({ error: 'Failed to get prompt' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 server.get('/place-id', async (req, res) => {
   const headers = {
