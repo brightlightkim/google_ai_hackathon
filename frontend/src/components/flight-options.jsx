@@ -6,7 +6,7 @@ const FlightOptions = () => {
         <div className='flex flex-col gap-1 flex-1'>
           <p>Provo</p>
           <h1 className='text-xl font-bold'>PVU</h1>
-          <p>30 May</p>
+          <p>17 May</p>
         </div>
         <div className='flex items-center flex-col gap-1 flex-1'>
           <p>10h 43m</p>
@@ -20,14 +20,14 @@ const FlightOptions = () => {
         <div className='flex items-end flex-col gap-1 flex-1'>
           <p>Korea</p>
           <h1 className='text-xl font-bold'>ICN</h1>
-          <p>30 May</p>
+          <p>18 May</p>
         </div>
       </div>
       <div className='flex bg-gray-100 justify-center items-center py-2 mb-4 rounded-lg p-2'>
         <div className='flex flex-col gap-1 flex-1'>
           <p>Korea</p>
           <h1 className='text-xl font-bold'>ICN</h1>
-          <p>30 May</p>
+          <p>20 May</p>
         </div>
         <div className='flex items-center flex-col gap-1 flex-1'>
           <p>10h 43m</p>
@@ -41,7 +41,7 @@ const FlightOptions = () => {
         <div className='flex items-end flex-col gap-1 flex-1'>
           <p>Provo</p>
           <h1 className='text-xl font-bold'>PVU</h1>
-          <p>30 May</p>
+          <p>20 May</p>
         </div>
       </div>
       <div className='flex justify-between'>
