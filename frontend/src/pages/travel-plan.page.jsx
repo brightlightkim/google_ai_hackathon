@@ -2,6 +2,8 @@ import gao from '../imgs/Gao.jpg';
 import paris from '../imgs/Paris.jpg';
 import korea from '../imgs/Korea.png';
 import StayOptions from '../components/stay_options';
+import FlightOptions from '../components/flight-options';
+import ExperiencePage from './experience.page';
 
 const TravelPlanPage = () => {
   const extimated_budget = {
@@ -83,8 +85,16 @@ const TravelPlanPage = () => {
         </div>
       </div>
 
+      {/* Experience Page */}
+      <div className='flex flex-col gap-2 my-5 border-2 rounded-lg p-4'>
+        <ExperiencePage />
+      </div>
+
       {/* Stay Options */}
       <StayOptions />
+
+      {/* Flight Options */}
+      <FlightOptions />
 
       {/* Estimated Budget */}
       <div className='flex flex-col gap-2 my-5 border-2 rounded-lg p-4'>
