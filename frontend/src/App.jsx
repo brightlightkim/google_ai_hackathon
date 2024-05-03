@@ -49,7 +49,7 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Navbar />}>
             <Route index element={<HomePage />} />
-            <Route path='/travel_plan:id' element={<TravelPlanPage />} />
+            <Route path='/travel_plan/:id' element={<TravelPlanPage />} />
             <Route path='/signin' element={<UserAuthForm type='sign-in' />} />
             <Route path='/signup' element={<UserAuthForm type='sign-up' />} />
             <Route
