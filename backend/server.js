@@ -15,7 +15,7 @@ import aws from 'aws-sdk';
 import Notification from './Schema/Notification.js';
 import Comment from './Schema/Comment.js';
 import fs from 'fs';
-import *as functions from './DataBase/dataDAO.js';
+import * as functions from './DataBase/dataDAO.js';
 import {
   GoogleGenerativeAI,
   HarmCategory,
@@ -1357,7 +1357,7 @@ server.get('/getLocationPhotoes', async (req, res) => {
 server.post('/save-data-supabase', async(req, res) =>{
   let {id, prompt} = req.body;
   try{
-    const success = await savePlan(id, prompt);
+    const success = await functions.savePlan(id, prompt);
     if (success){
       res.json({ message: 'It is successfully saving the prompt'});
     }else{

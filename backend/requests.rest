@@ -50,3 +50,11 @@
 
 POST http://localhost:3000/save-data-supabase
 Content-Type: application/json
+
+{
+    "id":1,
+    "prompt": {
+        "city": "cc",
+        "day1": "kk"
+    }
+}
