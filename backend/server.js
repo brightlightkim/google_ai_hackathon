@@ -1374,18 +1374,20 @@ server.post('/save-data-supabase', async(req, res) =>{
 server.get('/get-data-supabase', async (req, res) => {
   let { id } = req.body;
   try {
-    const plan = await getPlan(id);
+    console.log("working");
+    const plan = await functions.getPlan(id);
     if (plan) {
-      res.json({ message: 'It is successfully saving the prompt' });
+      return res.status(200).json(plan);
     }else{
-      res.status(500).json({ error: 'Failed to get the prompt' });
+      return res.status(500).json({ error: 'Failed to get the prompt' });
     }
+    
   } catch (error) {
     console.error('Error:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 
-  return res.status(200).json(plan);
+  
 });
 
 server.post('/place-reviews', async (req, res) => {

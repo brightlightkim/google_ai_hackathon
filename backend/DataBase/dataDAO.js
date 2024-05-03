@@ -2,25 +2,18 @@ import sql from './db.js';
 
 async function savePlan(id, plan) {
     try{
+      console.log(plan);
       const existingPlan = await sql`
-       SELECT id FROM travelPlan WHERE id = ${id}
-      `;
-      if(existingPlan.length === 0){
-        await sql`
-          INSERT INTO travelPlan (id, plan)
+          INSERT INTO travelplan (id, plan)
           VALUES (${id}, ${plan})
         `;
-      } else{
-        await sql`
-        UPDATE travelPlan
-        SET plan = ${plan}
-        WHERE id = ${id}
-      `;
-      }
+      
     }catch (error){
-      console.error("Error saving travel plan:", error);
+      console.error("Error saving a travel plan:", error);
       throw error;
     }
+
+    return 1;
 }
 
 async function getPlan(id){

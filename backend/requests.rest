@@ -48,13 +48,20 @@
     
 #}
 
-POST http://localhost:3000/save-data-supabase
+# POST http://localhost:3000/save-data-supabase
+# Content-Type: application/json
+
+# {
+#     "id":3,
+#     "prompt": {
+#         "city": "cc",
+#         "day1": "kk"
+#     }
+# }
+
+GET http://localhost:3000/get-data-supabase
 Content-Type: application/json
 
 {
-    "id":1,
-    "prompt": {
-        "city": "cc",
-        "day1": "kk"
-    }
+    "id":3
 }
