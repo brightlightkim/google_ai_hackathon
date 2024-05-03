@@ -1,7 +1,7 @@
 const FlightOptions = () => {
   return (
     <div className='flex-col my-5 border-2 rounded-lg px-4 py-4'>
-      <h1 className='text-lg font-bold mb-2'>Flight Options</h1>
+      <h1 className='text-2xl my-4 font-bold'>Flight Options</h1>
       <div className='flex bg-gray-100 justify-center items-center py-2 mb-4 rounded-lg p-2'>
         <div className='flex flex-col gap-1 flex-1'>
           <p>Provo</p>
