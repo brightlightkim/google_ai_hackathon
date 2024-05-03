@@ -53,6 +53,7 @@
 # }
 
 # POST http://localhost:3000/place-reviews
+
 # POST http://localhost:3000/build-travel-plan
 # Content-Type: application/json
 
@@ -75,6 +76,7 @@
 # }
 
 # GET http://localhost:3000/place-photos
+# POST http://localhost:3000/place-reviews
 # Content-Type: application/json
 
 # {
@@ -91,4 +93,15 @@ Content-Type: application/json
     "fromDate": "May 6", 
     "toDate": "May 9", 
     "specificActivity": "school tour, museum, hiking, shopping, eating, etc."
+}
+#     "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
+# }
+
+GET http://localhost:3000/searchHotels
+Content-Type: application/json
+
+{
+    "prompt": "london eye",
+    "arrival": "2024-05-02",
+    "departure": "2024-05-05"
 }
