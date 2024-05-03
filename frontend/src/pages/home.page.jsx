@@ -1,9 +1,8 @@
-import React from 'react';
-import AnimationWrapper from '../common/page-animation';
-import gao from '../imgs/Gao.jpg';
-import paris from '../imgs/Paris.jpg';
-import guam from '../imgs/Guam.png';
-import korea from '../imgs/Korea.png';
+import React from "react";
+import gao from "../imgs/Gao.jpg";
+import guam from "../imgs/Guam.png";
+import korea from "../imgs/Korea.png";
+import paris from "../imgs/Paris.jpg";
 
 const HomePage = () => {
   return (
@@ -105,7 +104,30 @@ const HomePage = () => {
       <div class='about'>
         <div class='how-to-travel-with-ai'>How to travel with AI</div>
         <div class='container-11'>
-          <div class='this-is-about-the-app'>This is about the app</div>
+          <div class='this-is-about-the-app'>
+            In the heart of the bustling city, a small, quaint café sat tucked
+            away on a narrow, cobblestone street. Its charming exterior, adorned
+            with hanging plants and vintage signage, beckoned passersby to step
+            inside. The café, known for its aromatic coffee and freshly baked
+            pastries, served as a tranquil oasis amidst the urban chaos.
+            Patrons, ranging from busy professionals to leisurely readers, found
+            solace at the rustic wooden tables, where the soft hum of whispered
+            conversations mingled with the clinking of coffee cups. The
+            atmosphere inside was a blend of warmth and nostalgia, making it the
+            perfect spot for those seeking a moment of peace or a burst of
+            inspiration.
+          </div>
+          <iframe
+            className='youtube'
+            width='560'
+            height='315'
+            src='https://www.youtube.com/embed/c-ptvXgUfdg?si=XbktqTfryLlrhCoa'
+            title='YouTube video player'
+            frameborder='0'
+            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+            referrerpolicy='strict-origin-when-cross-origin'
+            allowfullscreen
+          ></iframe>
           <div class='image-9'></div>
         </div>
       </div>
