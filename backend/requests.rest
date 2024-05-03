@@ -52,6 +52,26 @@
 #     "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
 # }
 
+# POST http://localhost:3000/place-reviews
+# Content-Type: application/json
+
+# {
+#     "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
+# }
+
+# GET http://localhost:3000/place-photos?placeId=ChIJs5ydyTiuEmsR0fRSlU0C7k0
+# Content-Type: application/json
+
+# {
+
+# }
+
+# GET http://localhost:3000/place-id?locationName=Seoul%20Korea
+# Content-Type: application/json
+
+# {
+
+# }
 
 # POST http://localhost:3000/build-travel-plan
 # Content-Type: application/json
@@ -64,55 +84,17 @@
 #     "toDate": "May 9", 
 #     "specificActivity": "school tour, museum, hiking, shopping, eating, etc."
 # }
-# POST http://localhost:3000/place-reviews
+
+# GET http://localhost:3000/getLocationPhotos
 # Content-Type: application/json
 
 # {
-#     "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
+#     "prompt": "Seoul"
 # }
-# POST http://localhost:3000/place-reviews
+
+# GET http://localhost:3000/getLocationReviews?prompt=Seoul
 # Content-Type: application/json
 
 # {
-#     "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
+    
 # }
-
-# GET http://localhost:3000/getRoundTrip
-# Content-Type: application/json
-
-# {
-#     "fromCity": "London",
-#     "toCity": "Incheon",
-#     "departDate": "2024-05-05",
-#     "returnDate": "2024-05-09"
-# }
-
-
-# Content-Type: application/json
-
-# {
-#     "prompt": "london eye"
-# }
-
-POST http://localhost:3000/build-travel-plan
-Content-Type: application/json
-
-{
-    "travelTo": "Provo, UT", 
-    "travelFrom": "South Korea", 
-    "travelWith": "Car", 
-    "fromDate": "May 6", 
-    "toDate": "May 9", 
-    "specificActivity": "school tour, museum, hiking, shopping, eating, etc."
-}
-#     "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
-# }
-
-GET http://localhost:3000/searchHotels
-Content-Type: application/json
-
-{
-    "prompt": "london eye",
-    "arrival": "2024-05-02",
-    "departure": "2024-05-05"
-}
