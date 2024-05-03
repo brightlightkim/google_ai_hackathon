@@ -54,9 +54,7 @@
   .ce-toolbar__content {
     max-width: 900px;
   }
-  .search-area {
-    width: 680px;
-  }
+
   .search-bar {
     position: relative;
     height: 80px;
@@ -198,9 +196,9 @@
   }
 }
 
-.search-area {
+/* .search-area {
   @apply mt-5 mx-auto w-full max-w-4xl p-4 bg-white rounded-lg shadow-lg;
-}
+} */
 
 input[type="text"],
 input[type="date"] {
@@ -238,7 +236,7 @@ button:active {
   @apply text-lg font-semibold p-2;
 }
 
-.card button {
+/* .card button {
   @apply w-full text-white py-2 rounded-b-lg;
 }
 
@@ -246,7 +244,7 @@ button:active {
 .cdx-settings-button[data-tune="withBackground"],
 .cdx-settings-button[data-tune="stretched"] {
   display: none;
-}
+} */
 
 .home .name {
   margin-right: 9px;
@@ -286,7 +284,6 @@ button:active {
   -webkit-background-clip: text;
 }
 .home .let-me-build-your-personal-itinerary {
-  margin-left: 11px;
   overflow-wrap: break-word;
   font-family: "Inter";
   font-weight: 600;
@@ -380,13 +377,19 @@ button:active {
   color: #acacac;
 }
 .home .container-6 {
+  margin-left: 20px;
   border-radius: 30px;
   background: #3f3f3f;
   position: relative;
   display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 27px 4.4px 26px 0;
   width: 118px;
   box-sizing: border-box;
+}
+.home .container-6:hover {
+  background: #6b6b6b;
 }
 .home .container-4 {
   position: relative;
@@ -397,14 +400,63 @@ button:active {
   height: fit-content;
   box-sizing: border-box;
 }
+.radius-gradient-contatiner-l {
+  background: linear-gradient(180deg, #f4f4f4, #6e6e6e);
+  border-radius: 40px 0px 0px 40px;
+}
+.search-input-box-l{
+  background: #262626;
+  border-radius: 40px 0px 0px 40px;
+  width: 19rem;
+  padding: 0px 20px;
+  margin: 2px;
+  display: flex;
+  flex-direction: row;
+}
+.radius-gradient-contatiner-c {
+  background: linear-gradient(180deg, #f4f4f4, #6e6e6e);
+}
+.search-input-box-c{
+  width: 150px;
+  background: #262626;
+  padding: 0px 20px;
+  margin: 2px;
+  display: flex;
+  flex-direction: row;
+}
+.radius-gradient-contatiner-r {
+  background: linear-gradient(180deg, #f4f4f4, #6e6e6e);
+  border-radius: 0px 40px 40px 0px;
+}
+.search-input-box-r{
+  background: #262626;
+  width: 19rem;
+  border-radius: 0px 40px 40px 0px;
+  padding: 0px 20px;
+  margin: 2px;
+  display: flex;
+  flex-direction: row;
+}
 .home .rectangle-26 {
-  border-radius: 30px 0 0 30px;
-  border: 2px solid #f4f4f4;
+  display: inline-flex;
+  border: double 2px transparent;
+  border-radius: 30px 0px 0px 30px;
+  background-image: linear-gradient(#262626, #262626), radial-gradient(circle at center top, #6e6e6e 0%, #f4f4f4 100%);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  
   position: absolute;
   left: 0px;
   bottom: 0px;
   width: 270px;
   height: 72px;
+/*   
+  border-collapse: separate; 
+  perspective: 1px;
+  border-image: linear-gradient(180deg, #f4f4f4, #6e6e6e);
+  border-image-slice: 1;
+  border-width: 2px;
+  border-style: solid; */
 }
 .home .rectangle-27 {
   border-image: linear-gradient(180deg, #f4f4f4, #6e6e6e);
@@ -446,6 +498,7 @@ button:active {
   border: 1.5px solid #949494;
   position: relative;
   display: flex;
+  justify-content: center;
   padding: 11px 19.4px 11px 19px;
   box-sizing: border-box;
 }
@@ -461,6 +514,7 @@ button:active {
   border: 1.5px solid #949494;
   position: relative;
   display: flex;
+  justify-content: center;
   padding: 11px 1.4px 11px 0;
   width: 202px;
   box-sizing: border-box;
@@ -472,26 +526,39 @@ button:active {
   font-size: 15px;
   color: #acacac;
 }
-.home .container-13 {
+.home .bottom-button {
+  width: 14.5rem;
   border-radius: 10px;
   border: 1.5px solid #949494;
   position: relative;
   display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 11px 8.9px 11px 9px;
   box-sizing: border-box;
 }
-.home .find-me-flights {
+.home .bottom-button:hover {
+  border: 1.5px solid #c1c1c1;
+}
+
+.home .bottom-button-text {
   overflow-wrap: break-word;
   font-family: "Inter";
   font-weight: 500;
   font-size: 15px;
   color: #acacac;
 }
+
+.home .bottom-button-text:hover {
+  color: #c1c1c1;
+}
+
 .home .container-7 {
   border-radius: 10px;
   border: 1.5px solid #949494;
   position: relative;
   display: flex;
+  justify-content: center;
   padding: 11px 0.4px 11px 0;
   width: 202px;
   box-sizing: border-box;
@@ -506,6 +573,7 @@ button:active {
   box-sizing: border-box;
 }
 .home .search-area {
+  width: 100%;
   background: #262626;
   position: relative;
   margin-bottom: 98px;
@@ -513,7 +581,6 @@ button:active {
   flex-direction: column;
   align-items: center;
   padding: 69px 0 48px 0;
-  width: 1280px;
   box-sizing: border-box;
 }
 .home .your-travel-bucketlist-starts-here {
@@ -570,11 +637,13 @@ button:active {
   box-sizing: border-box;
 }
 .home .goa {
+  flex: 1 1 0px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   background: #ffffff;
   position: relative;
   display: flex;
+  align-items: center;
   flex-direction: column;
   padding-bottom: 15px;
   box-sizing: border-box;
@@ -617,18 +686,22 @@ button:active {
   border-radius: 10px;
   background: #f6f6f6;
   position: relative;
-  margin: 0 19px 0 18px;
+  margin: 0 20px 0 20px;
   display: flex;
-  padding: 12px 0 11px 0.3px;
-  width: 229px;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 10px 11px 10px;
+  width: 90%;
   box-sizing: border-box;
 }
 .home .paris {
+  flex: 1 1 0px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   background: #ffffff;
   position: relative;
   display: flex;
+  align-items: center;
   flex-direction: column;
   padding-bottom: 15px;
   box-sizing: border-box;
@@ -677,11 +750,13 @@ button:active {
   box-sizing: border-box;
 }
 .home .guam {
+  flex: 1 1 0px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   background: #ffffff;
   position: relative;
   display: flex;
+  align-items: center;
   flex-direction: column;
   padding-bottom: 15px;
   box-sizing: border-box;
@@ -730,11 +805,13 @@ button:active {
   box-sizing: border-box;
 }
 .home .korea {
+  flex: 1 1 0px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   background: #ffffff;
   position: relative;
   display: flex;
+  align-items: center;
   flex-direction: column;
   padding-bottom: 15px;
   box-sizing: border-box;
@@ -787,8 +864,10 @@ button:active {
   box-sizing: border-box;
 }
 .home .about {
-  margin-left: 10px;
+  margin-left: 30px;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   width: fit-content;
   box-sizing: border-box;
@@ -798,7 +877,6 @@ button:active {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 28px 0 225px 0;
-  width: 1280px;
+  /* padding: 28px 0 225px 0; */
   box-sizing: border-box;
 }

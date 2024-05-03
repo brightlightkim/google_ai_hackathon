@@ -31,24 +31,29 @@
 #     "newPassword": "Ehlswkd66!!"
 # }
 
-# POST http://localhost:3000/build-travel-plan
+# # POST http://localhost:3000/build-travel-plan
 # Content-Type: application/json
 
+# {
+#     "travelTo": "Provo, UT", 
+#     "travelFrom": "South Korea", 
+#     "travelWith": "Car", 
+#     "fromDate": "May 6", 
+#     "toDate": "May 9", 
+#     "specificActivity": "school tour, museum, hiking, shopping, eating, etc."
+# }
 
-#{   
-#    "purpose": "honeymoon",
-#    "travelWith": "Car", 
-#    "specificActivity": "school tour, museum, hiking, shopping, eating, etc.",
-#    "travelTo": "Provo, UT", 
-#    "travelFrom": "South Korea", 
-#    "budget" : "$5000",
-#    "numPeople": "2",
-#    "fromDate": "May 6", 
-#    "toDate": "May 9"
-    
-#}
+# POST https://places.googleapis.com/v1/places:searchText?fields=* HTTP/1.1
+# Content-Type: application/json
+# X-Goog-Api-Key: AIzaSyDqfOcm6kCq9yVXAuAqHJEBNwOi7iZOvs8
+# X-Goog-FieldMask: *
 
-# POST http://localhost:3000/save-data-supabase
+# {
+#     "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
+# }
+
+//POST http://localhost:3000/place-reviews
+# POST http://localhost:3000/build-travel-plan
 # Content-Type: application/json
 
 # {
@@ -59,9 +64,16 @@
 #     }
 # }
 
-GET http://localhost:3000/get-data-supabase
+GET http://localhost:3000/getLocationReviews
 Content-Type: application/json
 
 {
-    "id":3
+    "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
 }
+
+# GET http://localhost:3000/place-photos
+# Content-Type: application/json
+
+# {
+#     "placeId": "ChIJs5ydyTiuEmsR0fRSlU0C7k0"
+# }
