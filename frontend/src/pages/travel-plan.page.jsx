@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import StayOptions from '../components/stay_options';
 import FlightOptions from '../components/flight-options';
 import ExperiencePage from './experience.page';
+import geminiResponse from '../../../backend/gemini_response.json';
 
 const baseUrl = 'http://localhost:3000';
 
@@ -32,6 +33,7 @@ async function getLocationRating() {
   }
 
   const response = await axios.post(`${baseUrl}/place-reviews`, body, {})
+
   let rating = 0;
   console.log(response);
   response.data.places.map((place) => {
@@ -85,7 +87,7 @@ const TravelPlanPage = () => {
             style={{ fontSize: '24px', color: 'black' }}
           ></i>
         </button>
-        <div className='text-2xl font-bold'>Seoul, South Korea</div>
+        <div className='text-2xl font-bold'>{geminiResponse['Travel Summary']['destination']}</div>
         <button className='flex justify-center items-center bg-teal-200 hover:bg-teal-300 px-4 rounded-md gap-1'>
           <p className='text-teal-600'>Share</p>
           <i
@@ -105,15 +107,15 @@ const TravelPlanPage = () => {
       <div className='flex gap-2 my-5'>
         <div className='flex flex-col rounded-lg px-6 py-1 border-2 border-black'>
           <h1 className='text-lg'>Day1</h1>
-          <h1 className='text-slate-500'>Seoul</h1>
+          <h1 className='text-slate-500 max-w-xl break-words'>{geminiResponse['Daily Planner']['Day 1']['Breakfast']['Location']}</h1>
         </div>
         <div className='flex flex-col rounded-lg px-6 py-1 border-2 '>
           <h1 className='text-lg'>Day2</h1>
-          <h1 className='text-slate-500'>Seoul</h1>
+          <h1 className='text-slate-500'>{geminiResponse['Daily Planner']['Day 2']['Breakfast']['Location']}</h1>
         </div>
         <div className='flex flex-col rounded-lg px-6 py-1 border-2 '>
           <h1 className='text-lg'>Day3</h1>
-          <h1 className='text-slate-500'>Seoul</h1>
+          <h1 className='text-slate-500'>{geminiResponse['Daily Planner']['Day 3']['Breakfast']['Location']}</h1>
         </div>
       </div>
 
@@ -141,8 +143,15 @@ const TravelPlanPage = () => {
           </button>
           <h1 className='text-slate-800 py-2 font-bold'>Morning</h1>
           <p className='text-slate-500'>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            {geminiResponse['Daily Planner']['Day 1']['Activity1']['Name']} at {geminiResponse['Daily Planner']['Day 1']['Activity1']['Time']}
+          </p>
+          <h1 className='text-slate-800 py-2 font-bold'>Afternoon</h1>
+          <p className='text-slate-500'>
+            {geminiResponse['Daily Planner']['Day 2']['Activity2']['Name']} at {geminiResponse['Daily Planner']['Day 2']['Activity2']['Time']}
+          </p>
+          <h1 className='text-slate-800 py-2 font-bold'>Evening</h1>
+          <p className='text-slate-500'>
+            {geminiResponse['Daily Planner']['Day 3']['Activity3']['Name']} at {geminiResponse['Daily Planner']['Day 3']['Activity3']['Time']}
           </p>
           <button className='border-2 w-full rounded-lg py-2 text-md mt-4 font-bold'>
             See more
