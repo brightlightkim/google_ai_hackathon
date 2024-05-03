@@ -7,24 +7,29 @@ import HomePage from './pages/home.page';
 import PageNotFound from './pages/404.page';
 import UserForgotPassword from './pages/userForgotPassword.page';
 import ResetPassword from './pages/reset-password.page';
-
+import Map from './components/map.component';
+import WeatherPage from './pages/weather.page';
+import TravelPlanPage from './pages/travel-plan.page';
 export const UserContext = createContext({});
 
 export const ThemeContext = createContext({});
 
-const darkThemePreference = () => window.matchMedia('(prefers-color-scheme: dark)').matches;
+const darkThemePreference = () =>
+  window.matchMedia("(prefers-color-scheme: dark)").matches;
 
 const App = () => {
   const [userAuth, setUserAuth] = useState(() => {
-    const userInSession = lookInSession('user');
+    const userInSession = lookInSession("user");
     return userInSession ? JSON.parse(userInSession) : { access_token: null };
   });
 
-  const [theme, setTheme] = useState(()=> darkThemePreference() ? 'dark' : 'light');
+  const [theme, setTheme] = useState(() =>
+    darkThemePreference() ? "dark" : "light"
+  );
 
   useEffect(() => {
-    let userInSession = lookInSession('user');
-    let themeInSession = lookInSession('theme');
+    let userInSession = lookInSession("user");
+    let themeInSession = lookInSession("theme");
 
     userInSession
       ? setUserAuth(JSON.parse(userInSession))
@@ -32,10 +37,10 @@ const App = () => {
 
     themeInSession
       ? setTheme(() => {
-          document.body.setAttribute('data-theme', themeInSession);
+          document.body.setAttribute("data-theme", themeInSession);
           return themeInSession;
         })
-      : document.body.setAttribute('data-theme', theme);
+      : document.body.setAttribute("data-theme", theme);
   }, []);
 
   return (
@@ -44,10 +49,16 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Navbar />}>
             <Route index element={<HomePage />} />
+            <Route path='/travel_plan:id' element={<TravelPlanPage />} />
             <Route path='/signin' element={<UserAuthForm type='sign-in' />} />
             <Route path='/signup' element={<UserAuthForm type='sign-up' />} />
-            <Route path='/userforgotpassword' element={<UserForgotPassword />} />
+            <Route
+              path='/userforgotpassword'
+              element={<UserForgotPassword />}
+            />
             <Route path='/reset-password' element={<ResetPassword />} />
+            <Route path='/weather' element={<WeatherPage />} />
+            <Route path='/map' element={<Map /> }/>
             <Route path='*' element={<PageNotFound />} />
           </Route>
         </Routes>
