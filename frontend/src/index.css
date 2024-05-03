@@ -207,8 +207,7 @@ input[type="date"] {
   @apply border-gray-300 rounded-md text-lg p-3;
 }
 
-button {
-  /* @apply ml-2  text-white py-2 px-4 rounded-md; */
+/* button {
   color: #fff;
   padding: 8px 22px;
   border-radius: 6px;
@@ -220,7 +219,7 @@ search-option-button {
 }
 button:active {
   transform: scale(0.96);
-}
+} */
 
 .cards {
   @apply flex flex-wrap justify-center gap-4;
@@ -247,4 +246,559 @@ button:active {
 .cdx-settings-button[data-tune="withBackground"],
 .cdx-settings-button[data-tune="stretched"] {
   display: none;
+}
+
+.home .name {
+  margin-right: 9px;
+  width: 1162px;
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 500;
+  font-size: 15px;
+  color: #4a4a4a;
+}
+.home .sign-in {
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 500;
+  font-size: 15px;
+  color: #4a4a4a;
+}
+.home .nav {
+  margin: 0 34.7px 24px 26px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 1219.3px;
+  box-sizing: border-box;
+}
+.home .ai-travel-planner {
+  margin-bottom: 8px;
+  display: inline-block;
+  align-self: flex-start;
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 600;
+  font-size: 40px;
+  background: linear-gradient(90deg, #75dac8, #9ddca3);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+.home .let-me-build-your-personal-itinerary {
+  margin-left: 11px;
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 600;
+  font-size: 30px;
+  color: #5b5b5b;
+}
+.home .heading {
+  margin: 0 327.5px 59px 0;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  box-sizing: border-box;
+}
+.home .where {
+  position: relative;
+  margin-bottom: 2px;
+  display: inline-block;
+  align-self: flex-start;
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 500;
+  font-size: 15px;
+  color: #acacac;
+}
+.home .country-city-or-landmark {
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 500;
+  font-size: 13px;
+  color: #5c5c5c;
+}
+.home .container-8 {
+  margin: 16px 0 20px 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+.home .when {
+  position: relative;
+  margin: 0 14.2px 4px 1px;
+  display: inline-block;
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 500;
+  font-size: 15px;
+  color: #acacac;
+}
+.home .add-date {
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 500;
+  font-size: 13px;
+  color: #5c5c5c;
+}
+.home .container-5 {
+  margin: 16px 0 18px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+.home .theme {
+  position: relative;
+  margin: 0 2px 4px 2px;
+  display: inline-block;
+  align-self: flex-start;
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 500;
+  font-size: 15px;
+  color: #acacac;
+}
+.home .outdoor-museum-food {
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 500;
+  font-size: 13px;
+  color: #5c5c5c;
+}
+.home .container-2 {
+  margin: 14px 0 20px 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+.home .search {
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 800;
+  font-size: 16px;
+  color: #acacac;
+}
+.home .container-6 {
+  border-radius: 30px;
+  background: #3f3f3f;
+  position: relative;
+  display: flex;
+  padding: 27px 4.4px 26px 0;
+  width: 118px;
+  box-sizing: border-box;
+}
+.home .container-4 {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 801px;
+  height: fit-content;
+  box-sizing: border-box;
+}
+.home .rectangle-26 {
+  border-radius: 30px 0 0 30px;
+  border: 2px solid #f4f4f4;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 270px;
+  height: 72px;
+}
+.home .rectangle-27 {
+  border-image: linear-gradient(180deg, #f4f4f4, #6e6e6e);
+  border-image-slice: 1;
+  border-width: 2px;
+  border-style: solid;
+  position: absolute;
+  left: 274px;
+  bottom: 0px;
+  width: 162px;
+  height: 72px;
+}
+.home .rectangle-28 {
+  border-radius: 0 30px 30px 0;
+  border: 2px solid #f4f4f4;
+  position: absolute;
+  right: 140px;
+  bottom: 0px;
+  width: 247px;
+  height: 72px;
+}
+.home .search-1 {
+  position: relative;
+  margin: 0 0 73px 10px;
+  display: flex;
+  padding-left: 25px;
+  width: 826px;
+  box-sizing: border-box;
+}
+.home .inspire-me-where-to-go {
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 500;
+  font-size: 15px;
+  color: #acacac;
+}
+.home .container-12 {
+  border-radius: 10px;
+  border: 1.5px solid #949494;
+  position: relative;
+  display: flex;
+  padding: 11px 19.4px 11px 19px;
+  box-sizing: border-box;
+}
+.home .build-me-an-itinerary {
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 500;
+  font-size: 15px;
+  color: #acacac;
+}
+.home .container-9 {
+  border-radius: 10px;
+  border: 1.5px solid #949494;
+  position: relative;
+  display: flex;
+  padding: 11px 1.4px 11px 0;
+  width: 202px;
+  box-sizing: border-box;
+}
+.home .find-me-astunning-beach {
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 500;
+  font-size: 15px;
+  color: #acacac;
+}
+.home .container-13 {
+  border-radius: 10px;
+  border: 1.5px solid #949494;
+  position: relative;
+  display: flex;
+  padding: 11px 8.9px 11px 9px;
+  box-sizing: border-box;
+}
+.home .find-me-flights {
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 500;
+  font-size: 15px;
+  color: #acacac;
+}
+.home .container-7 {
+  border-radius: 10px;
+  border: 1.5px solid #949494;
+  position: relative;
+  display: flex;
+  padding: 11px 0.4px 11px 0;
+  width: 202px;
+  box-sizing: border-box;
+}
+.home .tags {
+  border-radius: 10px;
+  margin-left: 11px;
+  display: flex;
+  flex-direction: row;
+  column-gap: 11px;
+  width: fit-content;
+  box-sizing: border-box;
+}
+.home .search-area {
+  background: #262626;
+  position: relative;
+  margin-bottom: 98px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 69px 0 48px 0;
+  width: 1280px;
+  box-sizing: border-box;
+}
+.home .your-travel-bucketlist-starts-here {
+  margin: 0 59.6px 38px 0;
+  display: inline-block;
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 600;
+  font-size: 40px;
+  color: #313131;
+}
+.home .rectangle-12 {
+  border-radius: 10px 10px 0 0;
+  background: url("../assets/images/rectangle_12.png") 50% / cover no-repeat;
+  margin-bottom: 48px;
+  width: 266px;
+  height: 263px;
+}
+.home .day-adventure-in-goa {
+  margin: 0 22px 5px 22px;
+  display: inline-block;
+  align-self: flex-start;
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 600;
+  font-size: 18px;
+  color: #000000;
+}
+.home .may-29-jun-2 {
+  margin: 0 23px 18px 23px;
+  display: inline-block;
+  align-self: flex-start;
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 600;
+  font-size: 15px;
+  color: #848484;
+}
+.home .explore {
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 700;
+  font-size: 15px;
+  color: #3c3c3c;
+}
+.home .container-3 {
+  border-radius: 10px;
+  background: #f6f6f6;
+  position: relative;
+  margin: 0 19px 0 18px;
+  display: flex;
+  padding: 12px 0 11px 0.3px;
+  width: 229px;
+  box-sizing: border-box;
+}
+.home .goa {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  background: #ffffff;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 15px;
+  box-sizing: border-box;
+}
+.home .rectangle-15 {
+  border-radius: 10px 10px 0 0;
+  background: url("../assets/images/rectangle_15.png") 50% / cover no-repeat;
+  margin-bottom: 48px;
+  width: 266px;
+  height: 263px;
+}
+.home .day-adventure-in-paris {
+  margin: 0 22px 5px 22px;
+  display: inline-block;
+  align-self: flex-start;
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 600;
+  font-size: 18px;
+  color: #000000;
+}
+.home .may-29-jun-21 {
+  margin: 0 23px 18px 23px;
+  display: inline-block;
+  align-self: flex-start;
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 600;
+  font-size: 15px;
+  color: #848484;
+}
+.home .explore-1 {
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 700;
+  font-size: 15px;
+  color: #3c3c3c;
+}
+.home .container-10 {
+  border-radius: 10px;
+  background: #f6f6f6;
+  position: relative;
+  margin: 0 19px 0 18px;
+  display: flex;
+  padding: 12px 0 11px 0.3px;
+  width: 229px;
+  box-sizing: border-box;
+}
+.home .paris {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  background: #ffffff;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 15px;
+  box-sizing: border-box;
+}
+.home .rectangle-18 {
+  border-radius: 10px 10px 0 0;
+  background: url("../assets/images/rectangle_18.png") 50% / cover no-repeat;
+  margin-bottom: 48px;
+  width: 266px;
+  height: 263px;
+}
+.home .day-adventure-in-guam {
+  margin: 0 19.8px 5px 22px;
+  display: inline-block;
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 600;
+  font-size: 18px;
+  color: #000000;
+}
+.home .may-29-jun-22 {
+  margin: 0 23px 18px 23px;
+  display: inline-block;
+  align-self: flex-start;
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 600;
+  font-size: 15px;
+  color: #848484;
+}
+.home .explore-2 {
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 700;
+  font-size: 15px;
+  color: #3c3c3c;
+}
+.home .container-14 {
+  border-radius: 10px;
+  background: #f6f6f6;
+  position: relative;
+  margin: 0 19px 0 18px;
+  display: flex;
+  padding: 12px 0 11px 0.3px;
+  width: 229px;
+  box-sizing: border-box;
+}
+.home .guam {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  background: #ffffff;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 15px;
+  box-sizing: border-box;
+}
+.home .rectangle-21 {
+  border-radius: 10px 10px 0 0;
+  background: url("../assets/images/rectangle_21.png") 50% / cover no-repeat;
+  margin-bottom: 48px;
+  width: 266px;
+  height: 263px;
+}
+.home .day-adventure-in-korea {
+  margin: 0 20.7px 5px 22px;
+  display: inline-block;
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 600;
+  font-size: 18px;
+  color: #000000;
+}
+.home .may-29-jun-23 {
+  margin: 0 23px 18px 23px;
+  display: inline-block;
+  align-self: flex-start;
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 600;
+  font-size: 15px;
+  color: #848484;
+}
+.home .explore-3 {
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 700;
+  font-size: 15px;
+  color: #3c3c3c;
+}
+.home .container-1 {
+  border-radius: 10px;
+  background: #f6f6f6;
+  position: relative;
+  margin: 0 19px 0 18px;
+  display: flex;
+  padding: 12px 0 11px 0.3px;
+  width: 229px;
+  box-sizing: border-box;
+}
+.home .korea {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  background: #ffffff;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 15px;
+  box-sizing: border-box;
+}
+.home .container {
+  display: flex;
+  flex-direction: row;
+  column-gap: 12px;
+  width: fit-content;
+  box-sizing: border-box;
+}
+.home .bucketlist {
+  margin: 0 84px 80px 96px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+  box-sizing: border-box;
+}
+.home .how-to-travel-with-ai {
+  margin-bottom: 11px;
+  display: inline-block;
+  align-self: flex-start;
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 600;
+  font-size: 40px;
+  color: #313131;
+}
+.home .this-is-about-the-app {
+  margin: 0 11px 234px 0;
+  display: inline-block;
+  width: 454px;
+  overflow-wrap: break-word;
+  font-family: "Inter";
+  font-weight: 500;
+  font-size: 18px;
+  color: #000000;
+}
+.home .image-9 {
+  background: url("../assets/images/image_9.png") 50% / cover no-repeat;
+  width: 451px;
+  height: 256px;
+}
+.home .container-11 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 916px;
+  box-sizing: border-box;
+}
+.home .about {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  box-sizing: border-box;
+}
+.home {
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 28px 0 225px 0;
+  width: 1280px;
+  box-sizing: border-box;
 }

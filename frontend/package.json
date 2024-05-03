@@ -22,6 +22,7 @@
     "@editorjs/quote": "^2.5.0",
     "@emailjs/browser": "^4.3.3",
     "@flaticon/flaticon-uicons": "^2.2.0",
+    "@react-google-maps/api": "^2.19.3",
     "axios": "^1.4.0",
     "emailjs": "^4.0.3",
     "firebase": "^10.7.1",

@@ -22,6 +22,7 @@ import {
 } from '@google/generative-ai';
 import {getLocationDetails, getLocationReviews, getLocationPhotos} from './api/tripadvisorApi.js'
 import { getDestid, getHotels } from './api/booking.comApi.js';
+
 const server = express();
 let PORT = 3000;
 
