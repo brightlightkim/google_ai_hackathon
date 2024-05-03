@@ -1,9 +1,10 @@
+import AnimationWrapper from '../common/page-animation';
+import gao from '../imgs/Gao.jpg';
+import paris from '../imgs/Paris.jpg';
+import guam from '../imgs/Guam.png';
+import korea from '../imgs/Korea.png';
+import WeatherWidget from '../components/weatherWidget.component';
 import React, { useState } from "react";
-
-import gao from "../imgs/Gao.jpg";
-import guam from "../imgs/Guam.png";
-import korea from "../imgs/Korea.png";
-import paris from "../imgs/Paris.jpg";
 
 const HomePage = () => {
   // State to manage display of input fields
@@ -126,7 +127,10 @@ const HomePage = () => {
         </div>
         <div class='container'>
           <div class='goa'>
-            <img src={gao} className='rounded-t-lg mb-2' />
+            <img src={gao} class='rounded-t-lg mb-2' />
+            <div class='weather-widget'>
+              <WeatherWidget city="Goa"/>
+            </div>
             <div class='day-adventure-in-goa'>5-Day Adventure in Goa</div>
             <div class='may-29-jun-2'>May 29 - Jun 2</div>
             <button class='container-10'>
@@ -134,24 +138,33 @@ const HomePage = () => {
             </button>
           </div>
           <div class='paris'>
-            <img src={paris} className='rounded-t-lg mb-2' />
+            <img src={paris} class='rounded-t-lg mb-2' />
+            <div class='weather-widget'>
+              <WeatherWidget city="Paris"/>
+            </div>
             <div class='day-adventure-in-paris'>5-Day Adventure in Paris</div>
             <div class='may-29-jun-21'>May 29 - Jun 2</div>
             <button class='container-10'>
               <div class='explore-1'>Explore</div>
             </button>
           </div>
-          <div class='paris'>
-            <img src={guam} className='rounded-t-lg mb-2' />
-            <div class='day-adventure-in-paris'>5-Day Adventure in Guam</div>
+          <div class='guam'>
+            <img src={guam} class='rounded-t-lg mb-2' />
+            <div class='weather-widget'>
+              <WeatherWidget city="Guam"/>
+            </div>
+            <div class='day-adventure-in-guam'>5-Day Adventure in Guam</div>
             <div class='may-29-jun-22'>May 29 - Jun 2</div>
             <button class='container-10'>
               <div class='explore-1'>Explore</div>
             </button>
           </div>
-          <div class='paris'>
-            <img src={korea} className='rounded-t-lg mb-2' />
-            <div class='day-adventure-in-paris'>5-Day Adventure in Korea</div>
+          <div class='korea'>
+            <img src={korea} class='rounded-t-lg mb-2' />
+            <div class='weather-widget'>
+              <WeatherWidget city="Seoul"/>
+            </div>
+            <div class='day-adventure-in-korea'>5-Day Adventure in Seoul</div>
             <div class='may-29-jun-23'>May 29 - Jun 2</div>
             <button className='container-10'>
               <div class='explore-1'>Explore</div>
