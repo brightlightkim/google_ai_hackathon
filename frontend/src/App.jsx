@@ -9,6 +9,7 @@ import UserForgotPassword from './pages/userForgotPassword.page';
 import ResetPassword from './pages/reset-password.page';
 import Map from './components/map.component';
 import WeatherPage from './pages/weather.page';
+import TravelPlanPage from './pages/travel-plan.page';
 export const UserContext = createContext({});
 
 export const ThemeContext = createContext({});
@@ -48,6 +49,7 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Navbar />}>
             <Route index element={<HomePage />} />
+            <Route path='/travel_plan/:id' element={<TravelPlanPage />} />
             <Route path='/signin' element={<UserAuthForm type='sign-in' />} />
             <Route path='/signup' element={<UserAuthForm type='sign-up' />} />
             <Route

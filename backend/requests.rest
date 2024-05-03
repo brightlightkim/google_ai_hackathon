@@ -31,7 +31,7 @@
 #     "newPassword": "Ehlswkd66!!"
 # }
 
-# POST http://localhost:3000/build-travel-plan
+# # POST http://localhost:3000/build-travel-plan
 # Content-Type: application/json
 
 # {
@@ -52,7 +52,11 @@
 #     "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
 # }
 
+<<<<<<< HEAD
 
+=======
+# POST http://localhost:3000/place-reviews
+>>>>>>> main
 # POST http://localhost:3000/build-travel-plan
 # Content-Type: application/json
 
@@ -64,6 +68,7 @@
 #     "toDate": "May 9", 
 #     "specificActivity": "school tour, museum, hiking, shopping, eating, etc."
 # }
+<<<<<<< HEAD
 # POST http://localhost:3000/place-reviews
 # Content-Type: application/json
 
@@ -78,4 +83,33 @@ Content-Type: application/json
     "prompt": "london eye",
     "arrival": "2024-05-02",
     "departure": "2024-05-05"
+=======
+
+# GET http://localhost:3000/provide-videos
+# Content-Type: application/json
+
+# {
+#     "location": "Seoul, Korea", 
+#     "date": "May 10, 2024", 
+#     "theme": "Korean Food"
+# }
+
+# GET http://localhost:3000/place-photos
+# Content-Type: application/json
+
+# {
+#     "placeId": "ChIJs5ydyTiuEmsR0fRSlU0C7k0"
+# }
+
+POST http://localhost:3000/build-travel-plan
+Content-Type: application/json
+
+{
+    "travelTo": "Provo, UT", 
+    "travelFrom": "South Korea", 
+    "travelWith": "Car", 
+    "fromDate": "May 6", 
+    "toDate": "May 9", 
+    "specificActivity": "school tour, museum, hiking, shopping, eating, etc."
+>>>>>>> main
 }

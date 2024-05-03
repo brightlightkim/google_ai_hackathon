@@ -133,3 +133,11 @@ dist
 backend/aihackathon-bb85a-firebase-adminsdk-zyl5x-2ecf43634a.json
 frontend/src/common/firebase.jsx
 frontend/.vite
+
+backend/.Rhistory
+
+.DS_Store
+
+# ignore all __pycache__ directories
+__pycache__/
+*__pycache__/*
