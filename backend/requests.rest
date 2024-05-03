@@ -31,7 +31,7 @@
 #     "newPassword": "Ehlswkd66!!"
 # }
 
-# POST http://localhost:3000/build-travel-plan
+# # POST http://localhost:3000/build-travel-plan
 # Content-Type: application/json
 
 # {
@@ -52,7 +52,8 @@
 #     "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
 # }
 
-POST http://localhost:3000/place-reviews
+# POST http://localhost:3000/place-reviews
+
 # POST http://localhost:3000/build-travel-plan
 # Content-Type: application/json
 
@@ -65,16 +66,42 @@ POST http://localhost:3000/place-reviews
 #     "specificActivity": "school tour, museum, hiking, shopping, eating, etc."
 # }
 
-GET http://localhost:3000/getLocationReviews
-Content-Type: application/json
+# GET http://localhost:3000/provide-videos
+# Content-Type: application/json
 
-{
-    "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
-}
+# {
+#     "location": "Seoul, Korea", 
+#     "date": "May 10, 2024", 
+#     "theme": "Korean Food"
+# }
 
 # GET http://localhost:3000/place-photos
+# POST http://localhost:3000/place-reviews
 # Content-Type: application/json
 
 # {
 #     "placeId": "ChIJs5ydyTiuEmsR0fRSlU0C7k0"
 # }
+
+POST http://localhost:3000/build-travel-plan
+Content-Type: application/json
+
+{
+    "travelTo": "Provo, UT", 
+    "travelFrom": "South Korea", 
+    "travelWith": "Car", 
+    "fromDate": "May 6", 
+    "toDate": "May 9", 
+    "specificActivity": "school tour, museum, hiking, shopping, eating, etc."
+}
+#     "textQuery": "Spicy Vegetarian Food in Sydney, Australia"
+# }
+
+GET http://localhost:3000/searchHotels
+Content-Type: application/json
+
+{
+    "prompt": "london eye",
+    "arrival": "2024-05-02",
+    "departure": "2024-05-05"
+}
