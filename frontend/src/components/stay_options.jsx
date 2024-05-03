@@ -1,7 +1,7 @@
 const StayOptions = () => {
   return (
     <div className='flex-col my-5 border-2 rounded-lg px-4 py-4'>
-      <h1 className='text-lg font-bold mb-2'>Stay Options</h1>
+      <h1 className='text-2xl my-4 font-bold'>Stay Options</h1>
       <img
         className='h-[400px] rounded-2xl'
         src='https://cf.bstatic.com/xdata/images/hotel/square600/479049255.webp?k=e9d174198305911587468e0c893de988bb1a86730ff282b5fc0754efa64622d9&o='
