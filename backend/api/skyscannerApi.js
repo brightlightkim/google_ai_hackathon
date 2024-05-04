@@ -1,5 +1,6 @@
 import axios from 'axios';
-const apikey = process.env.SKYSCANNER_ACCESS_KEY
+
+const apikey = import.meta.env.SKYSCANNER_ACCESS_KEY
 export async function getConfig(){
     const options = {
             method: 'GET',
