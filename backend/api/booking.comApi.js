@@ -52,7 +52,8 @@ export async function getHotels(prompt,arrival,departure) {
                     const response = await axios.request(options);
                     // console.log(response.data);
                     // It returns a bunch of properties of the hotel object
-                    return response.data
+                    const hotels = response.data.data.hotels.slice(0,3)
+                    return hotels
                 } catch (error) {
                     console.error(error);
                 }

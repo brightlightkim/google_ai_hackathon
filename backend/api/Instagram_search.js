@@ -1,4 +1,6 @@
 import axios from 'axios';
+import 'dotenv/config';
+
 const apikey = process.env.INSTAGRAM_KEY;
 
 export async function getHashtagSearch(prompt) {

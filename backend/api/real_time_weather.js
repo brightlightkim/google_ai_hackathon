@@ -1,4 +1,5 @@
 import axios from 'axios';
+import 'dotenv/config';
 
 const getWeather = async (location) => {
   const options = {
