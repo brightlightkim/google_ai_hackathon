@@ -58,10 +58,10 @@ const TravelPlanPage = () => {
   const [rating, setRating] = useState(null);
   const [photo, setPhoto] = useState('');
 
-  useEffect(async () => {
-    setRating(await getLocationRating());
-    // setPhoto(await getTripPhotos());
-  }, []);
+  //   useEffect(async () => {
+  //     // setRating(await getLocationRating());
+  //     // setPhoto(await getTripPhotos());
+  //   }, []);
 
   const extimated_budget = {
     Range: '$2,500 - $3,500',
@@ -162,7 +162,7 @@ const TravelPlanPage = () => {
         <h1 className='text-2xl font-bold'>Estimated Budget</h1>
         <div className='flex flex-col gap-2'>
           {Object.entries(extimated_budget).map(([key, value]) => (
-            <div className='flex justify-between'>
+            <div key={key} className='flex justify-between'>
               <p className='text-lg font-bold'>{key}</p>
               <p className='text-lg'>{value}</p>
             </div>
