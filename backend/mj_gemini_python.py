@@ -1,4 +1,4 @@
-#pip3 install google-generativeai
+#pip install google-generativeai
 
 import google.generativeai as genai
 import json

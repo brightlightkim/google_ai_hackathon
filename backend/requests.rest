@@ -1,36 +1,3 @@
-
-
-# POST http://localhost:3000/get-blog
-# Content-Type: application/json
-
-# {
-#     "blog_id": "Testing-onemqpubz5HSPyu-51oI8iGk"
-# }
-
-# POST http://localhost:3000/get-profile
-# Content-Type: application/json
-
-# {
-#     "username": "sunguard9509"
-# }
-
-
-# POST http://localhost:3000/search-users
-# Content-Type: application/json
-
-# {
-#     "username": "taeyang"
-# }
-
-# POST http://localhost:3000/change-password
-# Content-Type: application/json
-# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MDI1YjY1YzcwMTYwYjNlZjE3ZTJhYiIsImlhdCI6MTcxMTQzMDUzOH0.qCOfx2pt9yJIk7OtoORLqLc0IpzlypPNX7QcvIcdIfk
-
-# {
-#     "currentPassword": "Ehlswkd66!",
-#     "newPassword": "Ehlswkd66!!"
-# }
-
 # # POST http://localhost:3000/build-travel-plan
 # Content-Type: application/json
 
@@ -92,9 +59,66 @@
 #     "prompt": "Seoul"
 # }
 
-# GET http://localhost:3000/getLocationReviews?prompt=Seoul
+# GET http://localhost:3000/searchHotels
 # Content-Type: application/json
 
 # {
-    
+#     "prompt": "london eye",
+#     "arrival": "2024-05-05",
+#     "departure": "2024-05-08"
+# }
+
+# GET http://localhost:3000/getOneWayTrip
+# Content-Type: application/json
+
+# {
+#     "fromCity": "london",
+#     "toCity": "seoul",
+#     "departDate": "2024-05-08"
+# }
+
+# POST http://localhost:3000/build-travel-plan
+
+# Content-Type: application/json
+
+# {
+#     "travelTo": "Provo, UT", 
+#     "travelFrom": "South Korea", 
+#     "travelWith": "Car", 
+#     "fromDate": "May 6", 
+#     "toDate": "May 9", 
+#     "specificActivity": "school tour, museum, hiking, shopping, eating, etc."
+# }
+
+# GET http://localhost:3000/searchHotels
+# Content-Type: application/json
+
+# {
+#     "prompt": "london eye",
+#     "arrival": "2024-05-05",
+#     "departure": "2024-05-08
+# }
+GET http://localhost:3000/getLocationReviews
+Content-Type: application/json
+
+{
+    "prompt": "tokyo"
+}
+
+
+# GET http://localhost:3000/searchHotels
+# Content-Type: application/json
+
+# {
+#     "prompt": "london eye",
+#     "arrival": "2024-05-02",
+#     "departure": "2024-05-05"
+# }
+
+
+# GET http://localhost:3000/searchHotels
+# Content-Type: application/json
+
+# {
+#       "prompt": "seoul"
 # }

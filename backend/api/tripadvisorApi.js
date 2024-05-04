@@ -40,16 +40,17 @@ export async function getLocationDetails(prompt) {
 }
 export async function getLocationPhotos(prompt) {
   try{
-    const location_id = await getLocationId(prompt);
-    console.log(location_id);
-    const url = `https://api.content.tripadvisor.com/api/v1/location/${location_id}/photos?key=${process.env.TRIPADVISOR_ACCESS_KEY}&limit=3`;
-    const response = await axios.get(url);
-    // console.log(response);
-    const data = response.data;
-    // console.log(data);
-    const locationPhotoes = data;
-    // console.log(locationPhotoes);
-    return locationPhotoes;
+    const location_ids = await getLocationId(prompt);
+    const locationPhotos = [];
+
+    for(let id in location_ids){
+      const location_id = location_ids[id];
+      const url = `https://api.content.tripadvisor.com/api/v1/location/${location_id}/photos?key=${apikey}&limit=1`;
+      const response = await axios.get(url);
+      const data = response.data;
+      locationPhotos.push(data);
+    }
+    return locationPhotos;
   }
   catch (error) {
     console.error('Error:', error);
@@ -63,7 +64,7 @@ export async function getLocationReviews(prompt) {
     const locationReviews = [];
     for(let id in location_ids){
       const location_id = location_ids[id];
-      const url = `https://api.content.tripadvisor.com/api/v1/location/${location_id}/reviews?key=${apikey}&limit=3`;
+      const url = `https://api.content.tripadvisor.com/api/v1/location/${location_id}/reviews?key=${apikey}&limit=1`;
       const response = await axios.get(url);
       const data = response.data;
       locationReviews.push(data);
