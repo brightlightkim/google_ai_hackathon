@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import {
-  getRoundTrip,
-  getOneWayTrip,
-  getConfig,
-} from '../../../backend/api/skyscannerApi';
+// import {
+//   getRoundTrip,
+//   getOneWayTrip,
+//   getConfig,
+// } from '../../../backend/api/skyscannerApi';
 const FlightOptions = () => {
   const [roundTripItineraries, setRoundTripItineraries] = useState([]);
   const [config, setConfig] = useState(null);
 
-  async function fetchData() {
-    const itineraries = await getRoundTrip(
-      'Provo',
-      'Korea',
-      '2024-05-30',
-      '2024-06-01'
-    );
-    const configData = await getConfig();
+  // async function fetchData() {
+  //   const itineraries = await getRoundTrip(
+  //     'Provo',
+  //     'Korea',
+  //     '2024-05-30',
+  //     '2024-06-01'
+  //   );
+  //   const configData = await getConfig();
 
-    setRoundTripItineraries(itineraries);
-    setConfig(configData);
-  }
+  //   setRoundTripItineraries(itineraries);
+  //   setConfig(configData);
+  // }
 
   // useEffect(() => {
   //   // fetchData();

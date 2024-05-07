@@ -26,9 +26,18 @@ import {
 import { getHashtagSearch } from './api/Instagram_search.js';
 import getWeather from './api/real_time_weather.js';
 import axios from 'axios';
-import {getLocationDetails, getLocationReviews, getLocationPhotos} from './api/tripadvisorApi.js'
+import {
+  getLocationDetails,
+  getLocationReviews,
+  getLocationPhotos,
+} from './api/tripadvisorApi.js';
 import { getDestid, getHotels } from './api/booking.comApi.js';
-import { getEntityId, getOneWayTrip, getRoundTrip } from './api/skyscannerApi.js';
+import {
+  getConfig,
+  getEntityId,
+  getOneWayTrip,
+  getRoundTrip,
+} from './api/skyscannerApi.js';
 import { exec } from 'child_process';
 
 const server = express();
@@ -1218,7 +1227,7 @@ server.get('/getLocationDetails', async (req, res) => {
   try {
     const locationDetails = await getLocationDetails(prompt);
     if (locationDetails) {
-      res.json({ message: 'API is working', locationDetails: locationDetails});
+      res.json({ message: 'API is working', locationDetails: locationDetails });
     } else {
       res.status(500).json({ error: 'Failed to get location ID' });
     }
@@ -1264,7 +1273,7 @@ server.get('/searchDestination', async (req, res) => {
     const searchResults = await getDestid(prompt);
     // console.log(searchResults)
     if (searchResults) {
-      res.json({ message: 'API is working', searchResults: searchResults});
+      res.json({ message: 'API is working', searchResults: searchResults });
     } else {
       res.status(500).json({ error: 'Failed to get Destination' });
     }
@@ -1278,9 +1287,9 @@ server.get('/searchHotels', async (req, res) => {
   // need prompt(searchQuery), arrival date, and departure date
   let { prompt, arrival, departure } = req.body;
   try {
-    const searchResults = await getHotels(prompt,arrival,departure);
+    const searchResults = await getHotels(prompt, arrival, departure);
     if (searchResults) {
-      res.json({ message: 'API is working', searchResults: searchResults});
+      res.json({ message: 'API is working', searchResults: searchResults });
     } else {
       res.status(500).json({ error: 'Failed to get Destination' });
     }
@@ -1289,7 +1298,6 @@ server.get('/searchHotels', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
 
 server.post('/place-reviews', async (req, res) => {
   const headers = {
@@ -1387,7 +1395,7 @@ server.get('/getEntityId', async (req, res) => {
   try {
     const searchResults = await getEntityId(prompt);
     if (searchResults) {
-      res.json({ message: 'API is working', searchResults: searchResults});
+      res.json({ message: 'API is working', searchResults: searchResults });
     } else {
       res.status(500).json({ error: 'Failed to get Destination' });
     }
@@ -1400,10 +1408,15 @@ server.get('/getEntityId', async (req, res) => {
 server.get('/getRoundTrip', async (req, res) => {
   let { fromCity, toCity, departDate, returnDate } = req.body;
   try {
-    const searchResults = await getRoundTrip(fromCity, toCity, departDate, returnDate);
+    const searchResults = await getRoundTrip(
+      fromCity,
+      toCity,
+      departDate,
+      returnDate
+    );
     // console.log(searchResults);
     if (searchResults) {
-      res.json({ message: 'API is working', searchResults: searchResults});
+      res.json({ message: 'API is working', searchResults: searchResults });
     } else {
       res.status(500).json({ error: 'Failed to get Destination' });
     }
@@ -1418,7 +1431,7 @@ server.get('/getOneWayTrip', async (req, res) => {
     const searchResults = await getOneWayTrip(fromCity, toCity, departDate);
     // console.log(searchResults);
     if (searchResults) {
-      res.json({ message: 'API is working', searchResults: searchResults});
+      res.json({ message: 'API is working', searchResults: searchResults });
     } else {
       res.status(500).json({ error: 'Failed to get Destination' });
     }
@@ -1428,14 +1441,13 @@ server.get('/getOneWayTrip', async (req, res) => {
   }
 });
 
-
 server.get('/hashtag-search', async (req, res) => {
   let { prompt } = req.body;
   try {
     const hashtagphotos = await getHashtagSearch(prompt);
-    console.log(hashtagphotos)
+    console.log(hashtagphotos);
     if (hashtagphotos) {
-      res.json({ message: 'API is working', hashtagphotos: hashtagphotos});
+      res.json({ message: 'API is working', hashtagphotos: hashtagphotos });
     } else {
       res.status(500).json({ error: 'Failed to get prompt' });
     }
@@ -1445,13 +1457,12 @@ server.get('/hashtag-search', async (req, res) => {
   }
 });
 
-
 server.get('/place-id', async (req, res) => {
   const headers = {
-    "Content-Type": "application/json",
-    "X-Goog-Api-Key": process.env.GOOGLE_MAPS_API_KEY,
-    "X-Goog-FieldMask": "id"
-  }
+    'Content-Type': 'application/json',
+    'X-Goog-Api-Key': process.env.GOOGLE_MAPS_API_KEY,
+    'X-Goog-FieldMask': 'id',
+  };
 
   try {
     const locationName = req.query.locationName;
@@ -1465,12 +1476,57 @@ server.get('/place-id', async (req, res) => {
     console.log(placeId);
 
     const body = {
-      placeId
-    }
+      placeId,
+    };
 
-    res.json(body);    
+    res.json(body);
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+});
+
+// SkyScanner API getConfig Function
+server.get('/get-skyscanner-config', async (req, res) => {
+  try {
+    return getConfig();
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// SkyScanner API getEntityId Function
+server.get('/get-skyscanner-entity-id', async (req, res) => {
+  try {
+    return getEntityId();
+  }
+  catch {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// SkyScanner API getRoundTrip Function
+server.get('/get-skyscanner-round-trips', async (req, res) => {
+  let {fromCity, toCity, departDate, returnDate} = req.body;
+  try {
+    return getRoundTrip(fromCity, toCity, departDate, returnDate);
+  }
+  catch {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+})
+
+// SkyScanner API getOneWayTrip Function
+server.get('/get-skyscanner-one-way-trips', async (req, res) => {
+  let {fromCity, toCity, departDate} = req.body;
+  try {
+    return getOneWayTrip(fromCity, toCity, departDate);
+  }
+  catch {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 })
 

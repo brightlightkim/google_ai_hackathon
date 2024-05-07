@@ -3,10 +3,12 @@
 import google.generativeai as genai
 import json
 import sys
+from dotenv import load_dotenv
+import os
 
-GOOGLE_API_KEY = 'AIzaSyAS8q0pLXpfxphdQ-uj9IwyULKhlEHkDFQ'
+load_dotenv()
 
-genai.configure(api_key=GOOGLE_API_KEY)
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 # Set up the model
 generation_config = {
