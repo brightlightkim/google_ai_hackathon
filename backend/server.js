@@ -18,6 +18,7 @@ import aws from 'aws-sdk';
 import Notification from './Schema/Notification.js';
 import Comment from './Schema/Comment.js';
 import fs from 'fs';
+import * as functions from './DataBase/dataDAO.js';
 import {
   GoogleGenerativeAI,
   HarmCategory,
@@ -1266,6 +1267,39 @@ server.get('/getLocationPhotos', async (req, res) => {
   }
 });
 
+server.post('/save-data-supabase', async (req, res) => {
+  let { prompt } = req.body;
+  try {
+    const success = await functions.savePlan(prompt);
+    if (success) {
+      res.json({ message: 'It is successfully saving the prompt' });
+    } else {
+      res.status(500).json({ error: 'Failed to save the prompt' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+
+  return res.status(200);
+});
+
+server.get('/get-data-supabase', async (req, res) => {
+  let { id } = req.body;
+  try {
+    console.log('working');
+    const plan = await functions.getPlan(id);
+    if (plan) {
+      return res.status(200).json(plan);
+    } else {
+      return res.status(500).json({ error: 'Failed to get the prompt' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // booking.com api
 server.get('/searchDestination', async (req, res) => {
   let { prompt } = req.body;
@@ -1499,8 +1533,7 @@ server.get('/get-skyscanner-config', async (req, res) => {
 server.get('/get-skyscanner-entity-id', async (req, res) => {
   try {
     return getEntityId();
-  }
-  catch {
+  } catch {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
@@ -1508,27 +1541,25 @@ server.get('/get-skyscanner-entity-id', async (req, res) => {
 
 // SkyScanner API getRoundTrip Function
 server.get('/get-skyscanner-round-trips', async (req, res) => {
-  let {fromCity, toCity, departDate, returnDate} = req.body;
+  let { fromCity, toCity, departDate, returnDate } = req.body;
   try {
     return getRoundTrip(fromCity, toCity, departDate, returnDate);
-  }
-  catch {
+  } catch {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
-})
+});
 
 // SkyScanner API getOneWayTrip Function
 server.get('/get-skyscanner-one-way-trips', async (req, res) => {
-  let {fromCity, toCity, departDate} = req.body;
+  let { fromCity, toCity, departDate } = req.body;
   try {
     return getOneWayTrip(fromCity, toCity, departDate);
-  }
-  catch {
+  } catch {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
-})
+});
 
 server.listen(PORT, () => {
   console.log('listening on port -> ' + PORT);

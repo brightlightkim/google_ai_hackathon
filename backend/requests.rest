@@ -63,6 +63,10 @@
 # Content-Type: application/json
 
 # {
+<<<<<<< HEAD
+#     "placeId": "ChIJs5ydyTiuEmsR0fRSlU0C7k0"
+# }
+=======
 #     "prompt": "london eye",
 #     "arrival": "2024-05-05",
 #     "departure": "2024-05-08"
