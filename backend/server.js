@@ -24,13 +24,21 @@ import {
   HarmCategory,
   HarmBlockThreshold,
 } from '@google/generative-ai';
+import { getHashtagSearch } from './api/Instagram_search.js';
 import getWeather from './api/real_time_weather.js';
 import axios from 'axios';
 import {
   getLocationDetails,
   getLocationReviews,
-  getLocationPhotoes,
+  getLocationPhotos,
 } from './api/tripadvisorApi.js';
+import { getDestid, getHotels } from './api/booking.comApi.js';
+import {
+  getConfig,
+  getEntityId,
+  getOneWayTrip,
+  getRoundTrip,
+} from './api/skyscannerApi.js';
 import { exec } from 'child_process';
 
 const server = express();
@@ -1204,142 +1212,6 @@ server.get('/provide-videos', async (req, res) => {
   }
 });
 
-server.post('/build-travel-plan', async (req, res) => {
-  let { purpose, travelWith, specificActivity, travelTo, travelFrom, budget, numPeople, fromDate, toDate } =
-    req.body;
-  const MODEL_NAME = 'gemini-1.5-pro-latest';
-  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-  const model = genAI.getGenerativeModel({ model: MODEL_NAME });
-
-  const generationConfig = {
-    temperature: 1,
-    topK: 0,
-    topP: 0.95,
-    maxOutputTokens: 8192,
-  };
-
-  const safetySettings = [
-    {
-      category: HarmCategory.HARM_CATEGORY_HARASSMENT,
-      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    },
-    {
-      category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
-      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    },
-    {
-      category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
-      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    },
-    {
-      category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    },
-  ];
-
-  const chat = model.startChat({
-    generationConfig,
-    safetySettings,
-    history: [],
-  });
-
-  const context_prompt = `User wants to build a travel plan. You are helping the user with provided information
-                            User would like to go ${travelTo} from ${travelFrom} from ${fromDate} to ${toDate}.\n
-                            I will travel with ${travelWith}\n
-                            Traveling style would be ${purpose}.\n 
-                            and the number of traveler would be ${numPeople}.\n
-                            and the buget of this trip would be ${budget}.\n
-                            I want to do these activities: ${specificActivity}.
-                            When you consider the activities, please consider the distance. Choose the first activities based on the closest one from the current location.
-                            `; 
-  const request_prompt = `Your response is going to convert to json file.\n`;
-  const example_prompt = `
-                            {
-                          "Recommand Clothes": {
-                            "Top": "",
-                            "Bottom": "",
-                            "Shoes": "",
-                        },
-                        "Daily Planner": {
-                            "Day1": {
-                            "Breakfast": {
-                                "Time": "",
-                                "Time Zone": "",
-                                "Location":"",
-                                "Menu": "",
-                                "Price": "",
-                
-                            },
-                            "Activity1":{
-                                "Time":"",
-                                "Time Zone": "",
-                                "Location":"",
-                                "Name":"",
-                                "Type":"",
-                                "Price":""
-                            }
-                            
-                            "Lunch": {
-                                "Time": "",
-                                "Time Zone": "",
-                                "Location":,
-                                "Menu": "",
-                                "Price": ""
-                            },
-                            "Activity2":{
-                                "Time":"",
-                                "Time Zone": "",
-                                "Location":"",
-                                "Name":"",
-                                "Type":"",
-                                "Price":""
-                            }
-                            "Dinner": {
-                                "Time": "",
-                                "Time Zone": "",
-                                "Location":"",
-                                "Menu": "",
-                                "Price": ""
-                            },
-                            "Activity3":{
-                                "Time":"",
-                                "Time Zone": "",
-                                "Location":"",
-                                "Name":"",
-                                "Type":"",
-                                "Price":""
-                            }
-                            },
-                            "Day2": {
-                            // Similar structure for Day2
-                            }
-                            // Continue for more days
-                        },
-                        "Total Budget": {
-                            "Range": "",
-                            "Food price": "",
-                            "Transportation": "",
-                            "Hotel": "",
-                            "Flight": "",
-                            "Activity": "",
-                            "Total": ""
-                        }
-                        } `;
-
-  const query = `${context_prompt}\n,request_prompt: ${request_prompt}\nexample_prompt: ${example_prompt}`;
-
- 
-  const result = await chat.sendMessage(query);
-  
-  const cleanedRes = result.response.candidates[0].content.parts[0].text.replace(/\n/g, '');
-  const second = cleanedRes.replace(/```json/g, '');
-  const third = second.replace(/```/,'');
-  const forth = third.replace(/\\/,'');
-  // console.log(forth);
-  // return res.status(200).json(JSON.parse(result));
-  return res.status(200).json(result.response.candidates[0].content.parts[0].text);
-});
-
 server.get('/weather', async (req, res) => {
   const { location } = req.query;
   try {
@@ -1350,9 +1222,24 @@ server.get('/weather', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+//tripadviosrapi
+server.get('/getLocationDetails', async (req, res) => {
+  let { prompt } = req.body;
+  try {
+    const locationDetails = await getLocationDetails(prompt);
+    if (locationDetails) {
+      res.json({ message: 'API is working', locationDetails: locationDetails });
+    } else {
+      res.status(500).json({ error: 'Failed to get location ID' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 server.get('/getLocationReviews', async (req, res) => {
-  let { prompt } = req.body;
+  let { prompt } = req.query;
   try {
     const locationReviews = await getLocationReviews(prompt);
     if (locationReviews) {
@@ -1365,10 +1252,10 @@ server.get('/getLocationReviews', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-server.get('/getLocationPhotoes', async (req, res) => {
-  let { prompt } = req.body;
+server.get('/getLocationPhotos', async (req, res) => {
+  let { prompt } = req.query;
   try {
-    const locationPhotoes = await getLocationPhotoes(prompt);
+    const locationPhotoes = await getLocationPhotos(prompt);
     if (locationPhotoes) {
       res.json({ message: 'API is working', locationPhotoes: locationPhotoes });
     } else {
@@ -1380,37 +1267,69 @@ server.get('/getLocationPhotoes', async (req, res) => {
   }
 });
 
-server.post('/save-data-supabase', async(req, res) =>{
-  let {prompt} = req.body;
-  try{
+server.post('/save-data-supabase', async (req, res) => {
+  let { prompt } = req.body;
+  try {
     const success = await functions.savePlan(prompt);
-    if (success){
-      res.json({ message: 'It is successfully saving the prompt'});
-    }else{
+    if (success) {
+      res.json({ message: 'It is successfully saving the prompt' });
+    } else {
       res.status(500).json({ error: 'Failed to save the prompt' });
     }
-  }catch (error){
+  } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
-  
+
   return res.status(200);
 });
 
 server.get('/get-data-supabase', async (req, res) => {
   let { id } = req.body;
   try {
-    console.log("working");
+    console.log('working');
     const plan = await functions.getPlan(id);
     if (plan) {
       return res.status(200).json(plan);
-    }else{
+    } else {
       return res.status(500).json({ error: 'Failed to get the prompt' });
     }
-    
   } catch (error) {
     console.error('Error:', error);
     return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// booking.com api
+server.get('/searchDestination', async (req, res) => {
+  let { prompt } = req.body;
+  try {
+    const searchResults = await getDestid(prompt);
+    // console.log(searchResults)
+    if (searchResults) {
+      res.json({ message: 'API is working', searchResults: searchResults });
+    } else {
+      res.status(500).json({ error: 'Failed to get Destination' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+server.get('/searchHotels', async (req, res) => {
+  // need prompt(searchQuery), arrival date, and departure date
+  let { prompt, arrival, departure } = req.body;
+  try {
+    const searchResults = await getHotels(prompt, arrival, departure);
+    if (searchResults) {
+      res.json({ message: 'API is working', searchResults: searchResults });
+    } else {
+      res.status(500).json({ error: 'Failed to get Destination' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -1461,30 +1380,32 @@ server.get('/place-photos', async (req, res) => {
       },
     };
 
-    const placeId = req.body.placeId;
+    const placeId = req.query.placeId;
 
     const url = `https://places.googleapis.com/v1/places/${placeId}`;
 
-    const response = await axios.get(url, config);
+    const response = await axios.post(url, config);
 
     res.json(response.data);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
-
 server.post('/build-travel-plan', async (req, res) => {
   let { travelTo, travelFrom, travelWith, fromDate, toDate, specificActivity } =
     req.body;
 
   const command = `python mj_gemini_python.py "${travelTo}" "${travelFrom}" "${travelWith}" "${fromDate}" "${toDate}" "${specificActivity}"`;
 
-  exec(command, (err, stdout, stderr) => {
+  const child = exec(command, (err, stdout, stderr) => {
     if (err) {
       console.error(err);
       return res.status(500).send(err);
     }
-    const isFileSaved = () => stdout.includes('File has been saved.');
+  });
+
+  child.on('exit', (code) => {
+    const isFileSaved = () => child.stdout.includes('File has been saved.');
 
     // Check if stdout contains the desired message
     if (isFileSaved()) {
@@ -1501,6 +1422,143 @@ server.post('/build-travel-plan', async (req, res) => {
       }, 10000); // Check every 10 seconds
     }
   });
+});
+//sky scanner api
+server.get('/getEntityId', async (req, res) => {
+  let { prompt } = req.body;
+  try {
+    const searchResults = await getEntityId(prompt);
+    if (searchResults) {
+      res.json({ message: 'API is working', searchResults: searchResults });
+    } else {
+      res.status(500).json({ error: 'Failed to get Destination' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+server.get('/getRoundTrip', async (req, res) => {
+  let { fromCity, toCity, departDate, returnDate } = req.body;
+  try {
+    const searchResults = await getRoundTrip(
+      fromCity,
+      toCity,
+      departDate,
+      returnDate
+    );
+    // console.log(searchResults);
+    if (searchResults) {
+      res.json({ message: 'API is working', searchResults: searchResults });
+    } else {
+      res.status(500).json({ error: 'Failed to get Destination' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+server.get('/getOneWayTrip', async (req, res) => {
+  let { fromCity, toCity, departDate } = req.body;
+  try {
+    const searchResults = await getOneWayTrip(fromCity, toCity, departDate);
+    // console.log(searchResults);
+    if (searchResults) {
+      res.json({ message: 'API is working', searchResults: searchResults });
+    } else {
+      res.status(500).json({ error: 'Failed to get Destination' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+server.get('/hashtag-search', async (req, res) => {
+  let { prompt } = req.body;
+  try {
+    const hashtagphotos = await getHashtagSearch(prompt);
+    console.log(hashtagphotos);
+    if (hashtagphotos) {
+      res.json({ message: 'API is working', hashtagphotos: hashtagphotos });
+    } else {
+      res.status(500).json({ error: 'Failed to get prompt' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+server.get('/place-id', async (req, res) => {
+  const headers = {
+    'Content-Type': 'application/json',
+    'X-Goog-Api-Key': process.env.GOOGLE_MAPS_API_KEY,
+    'X-Goog-FieldMask': 'id',
+  };
+
+  try {
+    const locationName = req.query.locationName;
+    // get the placeId from geocoding API
+    const geoUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${locationName}&key=${process.env.GOOGLE_MAPS_API_KEY}`;
+    const geoResponse = await axios.get(geoUrl);
+    console.log(geoResponse);
+
+    // extract the placeId of the location
+    const placeId = geoResponse.data.results[0].place_id;
+    console.log(placeId);
+
+    const body = {
+      placeId,
+    };
+
+    res.json(body);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// SkyScanner API getConfig Function
+server.get('/get-skyscanner-config', async (req, res) => {
+  try {
+    return getConfig();
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// SkyScanner API getEntityId Function
+server.get('/get-skyscanner-entity-id', async (req, res) => {
+  try {
+    return getEntityId();
+  } catch {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// SkyScanner API getRoundTrip Function
+server.get('/get-skyscanner-round-trips', async (req, res) => {
+  let { fromCity, toCity, departDate, returnDate } = req.body;
+  try {
+    return getRoundTrip(fromCity, toCity, departDate, returnDate);
+  } catch {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// SkyScanner API getOneWayTrip Function
+server.get('/get-skyscanner-one-way-trips', async (req, res) => {
+  let { fromCity, toCity, departDate } = req.body;
+  try {
+    return getOneWayTrip(fromCity, toCity, departDate);
+  } catch {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 server.listen(PORT, () => {
